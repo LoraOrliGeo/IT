@@ -1,4 +1,4 @@
-package lesson2;
+package main.java.lesson2;
 
 import java.util.Scanner;
 
@@ -16,9 +16,9 @@ public class Task16 {
         if (dec == tens && tens == hundreds){
             System.out.println("The digits are equal!");
         } else if (dec > tens && tens > hundreds){
-            System.out.println("The digits are in increasing order!");
-        } else if (dec < tens && tens < hundreds){
             System.out.println("The digits are in decreasing order!");
+        } else if (dec < tens && tens < hundreds){
+            System.out.println("The digits are in increasing order!");
         } else {
             System.out.println("The digits are not in any of the described orders");
         }

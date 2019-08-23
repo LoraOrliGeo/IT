@@ -1,4 +1,4 @@
-package lesson2;
+package main.java.lesson2;
 
 import java.util.Scanner;
 
@@ -10,16 +10,26 @@ public class Task10 {
         System.out.println("Insert volume, l:");
         int volume = sc.nextInt();
 
-        int numberOfBuckets = volume / 5;
-        int litersFromFirstBucket = numberOfBuckets * 2;
-        int litersFromSecondBucket = numberOfBuckets * 3;
-        int total = litersFromFirstBucket + litersFromSecondBucket;
+        int equalTwoNThree = volume / 5;
 
-        System.out.println(numberOfBuckets + " times per 2 liters");
-        System.out.println(numberOfBuckets + " times per 3 liters");
+        int equalBucketsFull = equalTwoNThree * 2 + equalTwoNThree * 3;
 
-        if (volume > total){
-            System.out.println("Additional bucket of " + (volume - total) + " liters");
+        int remain = volume - equalBucketsFull;
+
+        if (remain != 0) {
+            if (remain == 1) {
+                equalTwoNThree--;
+                System.out.println(equalTwoNThree + " times per 2 liters");
+                System.out.println(equalTwoNThree + " times per 3 liters");
+                System.out.printf("Additional %d bucket/s of 3 liters%n", remain + 1);
+            } else if (remain % 2 == 0) {
+                System.out.println(equalTwoNThree + " times per 2 liters");
+                System.out.println(equalTwoNThree + " times per 3 liters");
+                System.out.printf("Additional %d bucket/s of 2 liters%n", remain / 2);
+            }
+        } else {
+            System.out.println(equalTwoNThree + " times per 2 liters");
+            System.out.println(equalTwoNThree + " times per 3 liters");
         }
     }
 }

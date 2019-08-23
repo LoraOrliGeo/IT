@@ -1,4 +1,4 @@
-package lesson2;
+package main.java.lesson2;
 
 import java.util.Scanner;
 
@@ -20,11 +20,11 @@ public class Task8 {
         int secondNum = Integer.parseInt(secondDigit + "" + thirdDigit);
 
         if (firstNum < secondNum) {
-            System.out.println("less (" + firstNum + " < " + secondNum + ")");
-        } else if (firstNum > secondNum){
-            System.out.println("bigger (" + firstNum + " > " + secondNum + ")");
+            System.out.println(String.format("less (%d < %d)", firstNum, secondNum));
+        } else if (firstNum > secondNum) {
+            System.out.println(String.format("bigger (%d > %d)", firstNum, secondNum));
         } else {
-            System.out.println("equal (" + firstNum + " = " + secondNum + ")");
+            System.out.println(String.format("equal (%d = %d)", firstNum, secondNum));
         }
     }
 }

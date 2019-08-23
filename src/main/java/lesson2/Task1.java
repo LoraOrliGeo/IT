@@ -1,4 +1,4 @@
-package lesson2;
+package main.java.lesson2;
 
 import java.util.Scanner;
 
@@ -16,11 +16,18 @@ public class Task1 {
         System.out.println("Insert C:");
         double c = sc.nextDouble();
 
-        if (a < c && c < b){
+        if (inRange(a, b, c)) {
             System.out.println("The number " + c + " is between " + a + " and " + b);
         } else {
             System.out.println("The number " + c + " is not between " + a + " and " + b);
         }
+    }
 
+    static boolean inRange(double a, double b, double c) {
+        if (a <= c && c <= b) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

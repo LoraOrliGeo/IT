@@ -1,4 +1,4 @@
-package lesson2;
+package main.java.lesson2;
 
 import java.util.Scanner;
 
@@ -14,6 +14,8 @@ public class Task12 {
         System.out.println("Year");
         int year = sc.nextInt();
 
+        int[] daysInMonths = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
         boolean isLeapYear = false;
 
         if (((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0))) {
@@ -21,35 +23,28 @@ public class Task12 {
         }
 
         if (isLeapYear) {
-            if (day == 28 && month == 2) {
+            if (month == 2) {
                 day++;
-            } else if (day < 31) {
-                day++;
+                System.out.println("Next date is: " + day + ", " + month + ", " + year);
             } else {
-                day = 1;
-
-                if (month < 12) {
-                    month++;
-                } else {
-                    month = 1;
-                    year++;
-                }
+                increaseDate(daysInMonths, day, month, year);
             }
         } else {
-            if (day == 28 && month == 2) {
-                day = 1;
-                month++;
-            } else if (day < 31) {
-                day++;
-            } else {
-                day = 1;
+            increaseDate(daysInMonths, day, month, year);
+        }
+    }
 
-                if (month < 12) {
-                    month++;
-                } else {
-                    month = 1;
-                    year++;
-                }
+    static void increaseDate(int[] daysInMonths, int day, int month, int year) {
+        if (day < daysInMonths[month - 1]) {
+            day++;
+        } else {
+            day = 1;
+
+            if (month < 12) {
+                month++;
+            } else {
+                month = 1;
+                year++;
             }
         }
 
