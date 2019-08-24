@@ -14,27 +14,16 @@ public class Task12 {
         System.out.println("Year");
         int year = sc.nextInt();
 
-        int[] daysInMonths = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-        boolean isLeapYear = false;
-
-        if (((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0))) {
-            isLeapYear = true;
-        }
-
-        if (isLeapYear) {
-            if (month == 2) {
-                day++;
-                System.out.println("Next date is: " + day + ", " + month + ", " + year);
-            } else {
-                increaseDate(daysInMonths, day, month, year);
-            }
-        } else {
-            increaseDate(daysInMonths, day, month, year);
-        }
+        printNextDate(day, month, year);
     }
 
-    static void increaseDate(int[] daysInMonths, int day, int month, int year) {
+    private static void printNextDate(int day, int month, int year) {
+        int[] daysInMonths = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        if (isLeapYear(year)) {
+            daysInMonths[1] = 29;
+        }
+
         if (day < daysInMonths[month - 1]) {
             day++;
         } else {
@@ -48,6 +37,10 @@ public class Task12 {
             }
         }
 
-        System.out.println("Next date is: " + day + ", " + month + ", " + year);
+        System.out.println(String.format("Next date is: %d, %d, %d", day, month, year));
+    }
+
+    private static boolean isLeapYear(int year) {
+        return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
     }
 }
