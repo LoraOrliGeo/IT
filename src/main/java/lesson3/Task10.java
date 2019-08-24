@@ -9,19 +9,20 @@ public class Task10 {
 
         int number = sc.nextInt();
 
-        boolean isPrime = true;
-
-        for (int i = 2; i < number; i++){
-            if (number % i == 0){
-                isPrime = false;
-                break;
-            }
-        }
-
-        if (isPrime){
+        if (isPrime(number)) {
             System.out.println("Number is prime!");
         } else {
             System.out.println("Number is not prime!");
         }
+    }
+
+    private static boolean isPrime(int number) {
+        for (int i = 2; i < number; i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

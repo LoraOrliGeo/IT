@@ -10,6 +10,7 @@ public class Task11 {
         int n = sc.nextInt();
 
         n *= 2;
+
         for (int i = 1; i < n; i+=2) {
             for (int j = 0; j < (n - i)/2; j++) {
                 System.out.print(" ");

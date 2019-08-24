@@ -10,10 +10,9 @@ public class Task18 {
         int num1 = sc.nextInt();
         int num2 = sc.nextInt();
 
-        for (int i = 1; i <= num1 ; i++) {
+        for (int i = 1; i <= num1; i++) {
             for (int j = 1; j <= num2; j++) {
-                int res = i * j;
-                System.out.println(i + " * " + j + " = " + res);
+                System.out.println(String.format("%d * %d = %d", i, j, i * j));
             }
         }
 

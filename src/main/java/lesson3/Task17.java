@@ -10,21 +10,34 @@ public class Task17 {
         String symbol = sc.nextLine();
 
         for (int i = 0; i < n; i++) {
-            if (i == 0 || i == n - 1){
-                for (int j = 0; j < n; j++) {
-                    System.out.print("*");
-                }
+            if (isFirstOrLastCol(i, n)) {
+                printFirstOrLastRow(n);
             } else {
-                for (int j = 0; j < n; j++) {
-                    if (j == 0 || j == n - 1){
-                        System.out.print("*");
-                    } else {
-                        System.out.print(symbol);
-                    }
-                }
+                printInternalRows(n, symbol);
             }
-
             System.out.println();
+        }
+
+        //too many methods?
+    }
+
+    private static void printFirstOrLastRow(int times) {
+        for (int j = 0; j < times; j++) {
+            System.out.print("*");
+        }
+    }
+
+    private static boolean isFirstOrLastCol(int col, int times) {
+        return col == 0 || col == times - 1;
+    }
+
+    private static void printInternalRows(int times, String symbol) {
+        for (int j = 0; j < times; j++) {
+            if (isFirstOrLastCol(j, times)) {
+                System.out.print("*");
+            } else {
+                System.out.print(symbol);
+            }
         }
     }
 }

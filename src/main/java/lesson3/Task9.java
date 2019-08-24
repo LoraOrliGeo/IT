@@ -1,5 +1,7 @@
 package lesson3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Task9 {
@@ -13,30 +15,25 @@ public class Task9 {
         System.out.println("Insert B:");
         int b = sc.nextInt();
 
+        List<String> output = new ArrayList<>();
+
         int sum = 0;
 
         for (int i = a; i <= b ; i++) {
             if (i % 3 == 0){
-                System.out.print("skip 3,");
+                output.add("skip 3");
                 continue;
             }
+
+            int pow = (int)Math.pow(i, 2);
+            sum += pow;
+            output.add(pow + "");
 
             if (sum > 200){
                 break;
             }
-
-            int numPowTwo = (int)Math.pow(i, 2);
-
-            if (i == b){
-                System.out.print(numPowTwo);
-            } else {
-                System.out.print(numPowTwo + ",");
-            }
-
-            sum += numPowTwo;
         }
 
-        System.out.println();
-        System.out.println(sum);
+        System.out.println(String.join(", ", output));
     }
 }

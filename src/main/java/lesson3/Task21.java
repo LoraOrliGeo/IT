@@ -11,40 +11,46 @@ public class Task21 {
 
         int n = sc.nextInt();
 
-        int[] cardValues = new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        List<Integer> cardValues = Arrays.asList(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+                                                                            //J,  Q,  K,  A
         List<String> cardColors = Arrays.asList("clubs", "diamonds", "hearts", "spades");
 
-        int value = cardValues[n / 4 - 1];
-        String color = cardColors.get(n % 4 - 1);
+        int value = cardValues.get(n / 4);
+        String color = cardColors.get(n % 4); // ??? -1 what if n % 4 == 0
 
-        for (int i = value; i < cardValues.length; i++) {
-            String cardName = "";
+        int indexOfValue = cardValues.indexOf(value);
 
-            switch (i){
-                case 9:
-                    cardName = "Jack"; // J
-                    break;
-                case 10:
-                    cardName = "Queen"; //Q
-                    break;
-                case 11:
-                    cardName = "King"; // K
-                    break;
-                case 12:
-                    cardName = "Ace"; // A
-                    break;
-                default:
-                    cardName = i + "";
-                    break;
-            }
-
-            String col = "";
-            for (int j = cardColors.indexOf(color); j < cardColors.size(); j++) {
-                col = cardColors.get(j);
-            }
-
-            System.out.println(cardName + " " + col);
+        for (int j = cardColors.indexOf(color) - 1; j < cardColors.size(); j++) {
+            System.out.println(getCardName(indexOfValue) + " " + cardColors.get(j));
         }
 
+        for (int i = cardValues.indexOf(value) + 1; i < cardValues.size(); i++) {
+            for (int j = 0; j < cardColors.size(); j++) {
+                System.out.println(getCardName(i) + " " + cardColors.get(j));
+            }
+        }
+    }
+
+    static String getCardName(int index) {
+        String cardName = "";
+
+        switch (index) {
+            case 9:
+                cardName = "Jack";
+                break;
+            case 10:
+                cardName = "Queen";
+                break;
+            case 11:
+                cardName = "King";
+                break;
+            case 12:
+                cardName = "Ace";
+                break;
+            default:
+                cardName = index + 2 + "";
+        }
+
+        return cardName;
     }
 }

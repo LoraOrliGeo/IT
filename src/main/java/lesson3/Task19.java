@@ -1,5 +1,7 @@
 package lesson3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Task19 {
@@ -9,15 +11,21 @@ public class Task19 {
 
         int prev = sc.nextInt();
 
-        while (prev > 1){
-            if (prev % 2 == 0){
-                prev = (int)(0.5 * prev);
-                System.out.print(prev + " ");
+        List<Integer> numberSequence = new ArrayList<>();
+
+        while (prev > 1) {
+            if (isEven(prev)) {
+                prev = (int) (0.5 * prev);
             } else {
                 prev = 3 * prev + 1;
-                System.out.print(prev + " ");
             }
+            numberSequence.add(prev);
         }
 
+        System.out.println(numberSequence.toString().replaceAll("[]\\[,]", ""));
+    }
+
+    private static boolean isEven(int num) {
+        return num % 2 == 0;
     }
 }
