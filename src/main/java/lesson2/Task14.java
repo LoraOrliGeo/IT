@@ -1,6 +1,5 @@
 package lesson2;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Task14 {
@@ -17,32 +16,34 @@ public class Task14 {
         // if the row is a odd number (1,3,5,7) -> the black cells are those with odd col position
         // if the row is an even number (2,4,6,8) -> the black cells are those with even col position
 
-        if (firstRow % 2 != 0 && secondRow % 2 != 0) {
-            if (cellsHaveSameColor(firstCol, secondCol)) {
-                System.out.println("The positions are with same color!");
+        if (areBothEvenOrOdd(firstRow, secondRow)) {
+            if (areBothEvenOrOdd(firstCol, secondCol)) {
+                printSameColorMessage();
             } else {
-                System.out.println("The positions are with different color!");
-            }
-        } else if (firstRow % 2 == 0 && secondRow % 2 == 0) {
-            if (cellsHaveSameColor(firstCol, secondCol)) {
-                System.out.println("The positions are with same color!");
-            } else {
-                System.out.println("The positions are with different color!");
+                printDifferentColorMessage();
             }
         } else {
-            if (firstRow % 2 != 0 && firstCol % 2 != 0 && secondRow % 2 == 0 && secondCol % 2 == 0) {
-                System.out.println("The positions are with same color!");
+            if (!areBothEvenOrOdd(firstCol, secondCol)) {
+                printSameColorMessage();
             } else {
-                System.out.println("The positions are with different color!");
+                printDifferentColorMessage();
             }
         }
     }
 
-    static boolean cellsHaveSameColor(int firstCol, int secondCol) {
-        if ((firstCol % 2 != 0 && secondCol % 2 != 0) || (firstCol % 2 == 0 && secondCol % 2 == 0)) {
-            return true;
-        } else {
-            return false;
-        }
+    private static boolean areBothEvenOrOdd(int firstCol, int secondCol) {
+        return (!isEven(firstCol) && !isEven(secondCol)) || (isEven(firstCol) && isEven(secondCol));
+    }
+
+    private static boolean isEven(int number) {
+        return number % 2 == 0;
+    }
+
+    private static void printSameColorMessage() {
+        System.out.println("The positions are with same color!");
+    }
+
+    private static void printDifferentColorMessage() {
+        System.out.println("The positions are with different color!");
     }
 }
