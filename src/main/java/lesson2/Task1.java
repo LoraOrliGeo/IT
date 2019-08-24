@@ -23,11 +23,7 @@ public class Task1 {
         }
     }
 
-    static boolean inRange(double a, double b, double c) {
-        if (a <= c && c <= b) {
-            return true;
-        } else {
-            return false;
-        }
+    private static boolean inRange(double a, double b, double c) {
+        return a <= c && c <= b;
     }
 }
