@@ -13,7 +13,7 @@ public class Task19 {
 
         List<Integer> numberSequence = new ArrayList<>();
 
-        while (prev > 1) {
+        while (prev != 1) {
             if (isEven(prev)) {
                 prev = (int) (0.5 * prev);
             } else {

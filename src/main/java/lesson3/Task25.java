@@ -12,14 +12,16 @@ public class Task25 {
         int startValue = 1;
         int factorial = 1;
 
-        if (number > 0) {
+        if (number >= 0) {
             do {
                 factorial *= startValue;
                 startValue++;
                 number--;
             } while (number > 0);
-        }
 
-        System.out.println(factorial);
+            System.out.println(factorial);
+        } else {
+            System.out.println("Negative numbers do not have factorial!");
+        }
     }
 }

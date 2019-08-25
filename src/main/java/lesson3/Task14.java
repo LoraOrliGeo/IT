@@ -9,6 +9,11 @@ public class Task14 {
 
         int n = sc.nextInt();
 
+        if (n < 10 || n > 200){
+            System.out.println("The entered number must be in interval [10...200]!");
+            return;
+        }
+
         for (int i = n - 1; i > 0 ; i--) {
             if(i % 7 == 0){
                 System.out.print(i + " ");

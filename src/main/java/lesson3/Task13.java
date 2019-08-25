@@ -10,7 +10,7 @@ public class Task13 {
         int sumToCheck = sc.nextInt();
 
         if (sumToCheck < 2 || sumToCheck > 27) {
-            System.out.println("There is not a three-digit number that satisfies the condition!");
+            System.out.println("The entered number must be in interval [2...27]!");
             return;
         }
 

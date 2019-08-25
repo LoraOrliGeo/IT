@@ -16,41 +16,37 @@ public class Task21 {
         List<String> cardColors = Arrays.asList("clubs", "diamonds", "hearts", "spades");
 
         int value = cardValues.get(n / 4);
-        String color = cardColors.get(n % 4); // ??? -1 what if n % 4 == 0
+        String color = cardColors.get((n - 1) % 4);
 
         int indexOfValue = cardValues.indexOf(value);
 
-        for (int j = cardColors.indexOf(color) - 1; j < cardColors.size(); j++) {
-            System.out.println(getCardName(indexOfValue) + " " + cardColors.get(j));
+        for (int j = cardColors.indexOf(color); j < cardColors.size(); j++) {
+            printCard(getCardName(indexOfValue), cardColors.get(j));
         }
 
         for (int i = cardValues.indexOf(value) + 1; i < cardValues.size(); i++) {
-            for (int j = 0; j < cardColors.size(); j++) {
-                System.out.println(getCardName(i) + " " + cardColors.get(j));
+            for (String cardColor : cardColors) {
+                printCard(getCardName(i), cardColor);
             }
         }
     }
 
-    static String getCardName(int index) {
-        String cardName = "";
-
+    private static String getCardName(int index) {
         switch (index) {
             case 9:
-                cardName = "Jack";
-                break;
+                return "Jack";
             case 10:
-                cardName = "Queen";
-                break;
+                return "Queen";
             case 11:
-                cardName = "King";
-                break;
+                return "King";
             case 12:
-                cardName = "Ace";
-                break;
+                return "Ace";
             default:
-                cardName = index + 2 + "";
+                return String.format("%d", index + 2);
         }
+    }
 
-        return cardName;
+    private static void printCard(String cardName, String cardColor) {
+        System.out.println(String.format("%s %s", cardName, cardColor));
     }
 }

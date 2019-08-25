@@ -19,19 +19,15 @@ public class Task9 {
 
         int sum = 0;
 
-        for (int i = a; i <= b ; i++) {
-            if (i % 3 == 0){
+        while (a <= b && sum <= 200) {
+            if (a % 3 == 0) {
                 output.add("skip 3");
-                continue;
+            } else {
+                int pow = (int) Math.pow(a, 2);
+                sum += pow;
+                output.add(pow + "");
             }
-
-            int pow = (int)Math.pow(i, 2);
-            sum += pow;
-            output.add(pow + "");
-
-            if (sum > 200){
-                break;
-            }
+            a++;
         }
 
         System.out.println(String.join(", ", output));

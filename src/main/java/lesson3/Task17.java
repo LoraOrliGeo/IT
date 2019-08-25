@@ -17,8 +17,6 @@ public class Task17 {
             }
             System.out.println();
         }
-
-        //too many methods?
     }
 
     private static void printFirstOrLastRow(int times) {

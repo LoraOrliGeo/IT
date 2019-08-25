@@ -11,9 +11,6 @@ public class Task12 {
             if (dec != tens && tens != hund && dec != hund){
                 System.out.println(i);
             }
-
-            // is it better to print the number or
-            // add it to a collection and print the collection outside the for loop?
         }
     }
 }

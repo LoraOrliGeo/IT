@@ -5,13 +5,13 @@ public class Task20 {
 
         for (int i = 1; i <= 10; i++) {
             int num = i;
-            String row = "";
+            StringBuilder row = new StringBuilder();
 
             for (int j = 1; j <= 10; j++) {
                 if (num >= 10) {
                     num = 0;
                 }
-                row += num + " ";
+                row.append(num).append(" ");
                 num++;
             }
 

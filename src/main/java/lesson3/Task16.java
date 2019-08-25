@@ -14,8 +14,11 @@ public class Task16 {
 
         List<Integer> output = new ArrayList<>();
 
-        for (int i = Math.max(a, b); i >= Math.min(a, b) ; i--) {
-            if (i % 50 == 0){
+        int start = Math.max(a, b);
+        int end = Math.min(a, b);
+
+        for (int i = start; i >= end; i--) {
+            if (i % 50 == 0) {
                 output.add(i);
             }
         }
