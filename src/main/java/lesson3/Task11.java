@@ -9,19 +9,37 @@ public class Task11 {
 
         int n = sc.nextInt();
 
-        n *= 2;
+        for (int i = 0; i < n; i++) {
+            printCharachterNTimes(" ", n - i - 1);
 
-        for (int i = 1; i < n; i+=2) {
-            for (int j = 0; j < (n - i)/2; j++) {
-                System.out.print(" ");
-            }
+            printCharachterNTimes("*", 2 * i + 1);
 
-            for (int j = 0; j < i; j++) {
-                System.out.print("*");
+            System.out.println();
+        }
+
+        // empty triangle:
+
+        for (int i = 0; i < n; i++) {
+            printCharachterNTimes(" ", n - i - 1);
+            printCharachterNTimes("*", 1);
+
+            if (i != n - 1) {
+                if (i != 0) {
+                    printCharachterNTimes(" ", 2 * i - 1);
+                    printCharachterNTimes("*", 1);
+                }
+            } else {
+                printCharachterNTimes("*", 2 * i);
             }
 
             System.out.println();
         }
 
+    }
+
+    private static void printCharachterNTimes(String symbol, int times) {
+        for (int i = 0; i < times; i++) {
+            System.out.print(symbol);
+        }
     }
 }
