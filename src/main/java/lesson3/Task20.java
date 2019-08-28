@@ -5,17 +5,16 @@ public class Task20 {
 
         for (int i = 1; i <= 10; i++) {
             int num = i;
-            StringBuilder row = new StringBuilder();
 
             for (int j = 1; j <= 10; j++) {
                 if (num >= 10) {
                     num = 0;
                 }
-                row.append(num).append(" ");
+                System.out.print(num + " ");
                 num++;
             }
 
-            System.out.println(row);
+            System.out.println();
         }
     }
 }

@@ -7,26 +7,23 @@ public class Task13 {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Enter a number:");
         int sumToCheck = sc.nextInt();
 
-        if (sumToCheck < 2 || sumToCheck > 27) {
+        while (sumToCheck < 2 || sumToCheck > 27) {
             System.out.println("The entered number must be in interval [2...27]!");
-            return;
+            sumToCheck = sc.nextInt();
         }
 
         for (int i = 100; i < 1000; i++) {
-            if (sumOfDigitsEqualsNumber(sumToCheck, i)) {
+            int dec = i % 10;
+            int tens = (i / 10) % 10;
+            int hund = (i / 100) % 10;
+
+            if (dec + tens + hund == sumToCheck) {
                 System.out.println(i);
             }
         }
 
-    }
-
-    private static boolean sumOfDigitsEqualsNumber(int sum, int number) {
-        int dec = number % 10;
-        int tens = (number / 10) % 10;
-        int hund = (number / 100) % 10;
-
-        return dec + tens + hund == sum;
     }
 }

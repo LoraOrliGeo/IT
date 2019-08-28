@@ -14,14 +14,14 @@ public class Task22 {
         while (count < 10) {
             num += 1;
 
-            if (isDivisibleByTwoThreeOrFive(num)) {
+            if (num % 2 == 0 || num % 3 == 0 || num % 5 == 0) {
                 count++;
-                System.out.println(String.format("%d:%d", count, num));
+                if (count == 10){
+                    System.out.print(count + ":" + num);
+                } else {
+                    System.out.print(count + ":" + num + ",");
+                }
             }
         }
-    }
-
-    private static boolean isDivisibleByTwoThreeOrFive(int num) {
-        return num % 2 == 0 || num % 3 == 0 || num % 5 == 0;
     }
 }

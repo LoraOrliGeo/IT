@@ -7,11 +7,12 @@ public class Task14 {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Please, enter a number:");
         int n = sc.nextInt();
 
-        if (n < 10 || n > 200){
+        while (n < 10 || n > 200){
             System.out.println("The entered number must be in interval [10...200]!");
-            return;
+            n = sc.nextInt();
         }
 
         for (int i = n - 1; i > 0 ; i--) {

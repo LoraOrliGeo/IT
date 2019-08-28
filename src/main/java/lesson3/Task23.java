@@ -9,12 +9,12 @@ public class Task23 {
             int secondMultiplier = firstMultiplier;
 
             while (secondMultiplier < 10) {
-                System.out.print(String.format("%d*%d ", firstMultiplier, secondMultiplier));
+                System.out.print(firstMultiplier + "*" + secondMultiplier + "; ");
                 secondMultiplier++;
             }
 
-            System.out.println();
             firstMultiplier++;
+            System.out.println();
         }
     }
 }

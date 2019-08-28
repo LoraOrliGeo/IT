@@ -13,15 +13,15 @@ public class Task24 {
         boolean isPalindrome = true;
 
         do {
-            if (number.charAt(index) != number.charAt(number.length() - index - 1)){
+            if (number.charAt(index) != number.charAt(number.length() - index - 1)) {
                 isPalindrome = false;
                 break;
             }
 
             index++;
-        } while (index < number.length()/2);
+        } while (index < number.length() / 2);
 
-        if (isPalindrome){
+        if (isPalindrome) {
             System.out.println("The number is palindrome");
         } else {
             System.out.println("The number is not palindrome");

@@ -1,7 +1,5 @@
 package lesson3;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Task21 {
@@ -9,44 +7,22 @@ public class Task21 {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Enter a number from interval [1...51]:");
         int n = sc.nextInt();
 
-        List<Integer> cardValues = Arrays.asList(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
-                                                                            //J,  Q,  K,  A
-        List<String> cardColors = Arrays.asList("clubs", "diamonds", "hearts", "spades");
+        String[] cardValues = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+        String[] cardColors = {"clubs", "diamonds", "hearts", "spades"};
 
-        int value = cardValues.get(n / 4);
-        String color = cardColors.get((n - 1) % 4);
+        String value = cardValues[n / 4];
 
-        int indexOfValue = cardValues.indexOf(value);
-
-        for (int j = cardColors.indexOf(color); j < cardColors.size(); j++) {
-            printCard(getCardName(indexOfValue), cardColors.get(j));
+        for (int i = (n - 1) % 4; i < cardColors.length; i++) {
+            System.out.println(value + " " + cardColors[i]);
         }
 
-        for (int i = cardValues.indexOf(value) + 1; i < cardValues.size(); i++) {
+        for (int i = n / 4 + 1; i < cardValues.length; i++) {
             for (String cardColor : cardColors) {
-                printCard(getCardName(i), cardColor);
+                System.out.println(cardValues[i] + " " + cardColor);
             }
         }
-    }
-
-    private static String getCardName(int index) {
-        switch (index) {
-            case 9:
-                return "Jack";
-            case 10:
-                return "Queen";
-            case 11:
-                return "King";
-            case 12:
-                return "Ace";
-            default:
-                return String.format("%d", index + 2);
-        }
-    }
-
-    private static void printCard(String cardName, String cardColor) {
-        System.out.println(String.format("%s %s", cardName, cardColor));
     }
 }

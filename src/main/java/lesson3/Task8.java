@@ -12,11 +12,12 @@ public class Task8 {
         int digit = n - 1;
 
         for (int i = 1; i <= n; i++) {
-            StringBuilder result = new StringBuilder();
+            String result = "";
 
             for (int j = 1; j <= n; j++) {
-                result.append(digit);
+                result += digit + "";
             }
+
             digit += 2;
             System.out.println(result);
         }

@@ -13,8 +13,13 @@ public class Task5 {
         System.out.println("Insert second number:");
         int b = sc.nextInt();
 
-        int start = Math.min(a, b);
-        int end = Math.max(a, b);
+        int start = a;
+        int end = b;
+
+        if (a > b){
+            start = b;
+            end = a;
+        }
 
         for (int i = start; i <= end; i++) {
             System.out.print(i + " ");

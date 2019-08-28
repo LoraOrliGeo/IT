@@ -1,8 +1,8 @@
-package lesson3;
+package lesson3_practice;
 
 import java.util.Scanner;
 
-public class Task10 {
+public class Task4 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -19,9 +19,11 @@ public class Task10 {
         }
 
         if (isPrime) {
-            System.out.println("The number is prime!");
+            System.out.println("Number is prime!");
         } else {
-            System.out.println("The Number is not prime!");
+            System.out.println("Number is not prime!");
         }
+
+//        System.out.println(isPrime ? "The number is prime" : "The number is not prime");
     }
 }

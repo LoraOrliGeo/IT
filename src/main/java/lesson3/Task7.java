@@ -1,7 +1,5 @@
 package lesson3;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Task7 {
@@ -13,13 +11,13 @@ public class Task7 {
         int n = sc.nextInt();
         int start = 3;
 
-        List<Integer> numbers = new ArrayList<>();
-
         for (int i = 1; i <= n ; i++) {
-            numbers.add(start);
+            if (i == n){
+                System.out.print(start);
+            } else {
+                System.out.print(start + ",");
+            }
             start += 3;
         }
-
-        System.out.println(String.join(", ", numbers.toString().replaceAll("[\\[\\]]", "")));
     }
 }

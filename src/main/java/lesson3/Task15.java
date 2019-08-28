@@ -7,6 +7,7 @@ public class Task15 {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Enter a number:");
         int num = sc.nextInt();
 
         int sum = 0;
@@ -16,6 +17,6 @@ public class Task15 {
             num--;
         } while (num > 0);
 
-        System.out.println(sum);
+        System.out.println("The sum of all numbers from 1 to your number is " + sum);
     }
 }

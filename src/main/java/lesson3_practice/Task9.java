@@ -1,8 +1,8 @@
-package lesson3;
+package lesson3_practice;
 
 import java.util.Scanner;
 
-public class Task11 {
+public class Task9 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -11,26 +11,6 @@ public class Task11 {
 
         int spaces = n - 1;
         int stars = 1;
-
-        for (int i = 0; i < n; i++) {
-            //spaces
-            for (int j = 0; j < spaces; j++) {
-                System.out.print(" ");
-            }
-
-            //stars
-            for (int j = 0; j < stars; j++) {
-                System.out.print("*");
-            }
-
-            spaces--;
-            stars += 2;
-            System.out.println();
-        }
-
-        // empty triangle:
-        spaces = n - 1;
-        stars = 1;
 
         for (int i = 0; i < n; i++) {
             //spaces at the begging of each row
