@@ -2,7 +2,7 @@ package lesson5_arrays;
 
 import java.util.Scanner;
 
-public class Task3_class {
+public class Class_Task3 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
