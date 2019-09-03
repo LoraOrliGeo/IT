@@ -11,24 +11,31 @@ public class Task10 {
 
         int sum = 0;
 
+        System.out.println("Enter value for each cell of the array:");
         for (int i = 0; i < arr.length; i++) {
             arr[i] = sc.nextInt();
             sum += arr[i];
         }
 
         double avg = sum / 7.0;
-        int closestValue = 0;
+        double minDiff = Double.MAX_VALUE;
+        int closestElement = arr[0];
 
         for (int i = 0; i < arr.length; i++) {
             double diff = avg - arr[i];
 
-            if (0 <= diff && diff < avg) {
-                closestValue = arr[i];
+            if (diff < 0){
+                diff *= -1;
+            }
+
+            if (diff <= minDiff) {
+                minDiff = diff;
+                closestElement = arr[i];
             }
         }
 
         System.out.println("Average value: " + avg);
-        System.out.println("Closest element to average value: " + closestValue);
+        System.out.println("Closest element to average value: " + closestElement);
 
     }
 }

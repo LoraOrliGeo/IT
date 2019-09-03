@@ -7,8 +7,12 @@ public class Task2 {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter how many cells the arrays will have:");
-        int size = sc.nextInt();
+        int size;
+
+        do {
+            System.out.println("Enter number of cells in both arrays:");
+            size = sc.nextInt();
+        } while (size <= 0);
 
         int[] firstArray = new int[size];
         int[] secondArray = new int[size];
@@ -29,6 +33,7 @@ public class Task2 {
             secondArrInd++;
         }
 
+        System.out.println("The new array is: ");
         for (int i = 0; i < secondArray.length; i++) {
             System.out.print(secondArray[i] + " ");
         }

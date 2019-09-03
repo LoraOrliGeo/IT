@@ -7,12 +7,18 @@ public class Task1 {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter how many cells the arrays will have:");
-        int size = sc.nextInt();
+        int size;
+
+        do {
+            System.out.println("Enter number of cells in the array:");
+            size = sc.nextInt();
+        } while (size <= 0);
 
         int[] arr = new int[size];
+
         int minNumDivisibleBy3 = Integer.MAX_VALUE;
 
+        System.out.println("Enter values for each cell:");
         for (int i = 0; i < arr.length; i++) {
             arr[i] = sc.nextInt();
 

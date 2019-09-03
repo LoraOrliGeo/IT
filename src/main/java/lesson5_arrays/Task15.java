@@ -1,6 +1,5 @@
 package lesson5_arrays;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Task15 {
@@ -8,31 +7,52 @@ public class Task15 {
 
         Scanner sc = new Scanner(System.in);
 
-        double[] numbers = Arrays.stream(sc.nextLine().split("; ")).mapToDouble(Double::parseDouble).toArray();
+        int size;
 
-        double firstMax = 0, secondMax = 0, thirdMax = 0;
+        do {
+            System.out.println("Enter valid size of the array:");
+            size = sc.nextInt();
+        } while (size <= 0);
 
-        for (int i = 0; i < numbers.length; i++) {
-            double curr;
+        double[] arr = new double[size];
 
-            if (numbers[i] < 0){
-                curr = numbers[i] * -1;
+        double[] absValuesArr = new double[size];
+
+        double maxOne = Double.MIN_VALUE;
+        double maxTwo = Double.MIN_VALUE;
+        double maxThree = Double.MIN_VALUE;
+
+        int indexOne = 0;
+        int indexTwo = 0;
+        int indexThree = 0;
+
+        System.out.println("Enter elements:");
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = sc.nextDouble();
+
+            if (arr[i] < 0){
+                absValuesArr[i] = arr[i] * -1;
             } else {
-                curr = numbers[i];
+                absValuesArr[i] = arr[i];
             }
 
-            if (curr > firstMax){
-                thirdMax = secondMax;
-                secondMax = firstMax;
-                firstMax = curr;
-            } else if (curr > secondMax){
-                thirdMax = secondMax;
-                secondMax = curr;
-            } else if (curr > thirdMax){
-                thirdMax = curr;
+            if (absValuesArr[i] > maxOne){
+                maxOne = arr[i];
+                indexOne = i;
+            }
+
+            if (absValuesArr[i] < maxOne && absValuesArr[i] > maxTwo){
+                maxTwo = arr[i];
+                indexTwo = i;
+            }
+
+            if (absValuesArr[i] < maxTwo && absValuesArr[i] > maxThree){
+                maxThree = arr[i];
+                indexThree = i;
             }
         }
 
-        System.out.println(thirdMax + "; " + secondMax + "; " + firstMax);
+        System.out.println(arr[indexOne] + "; " + arr[indexTwo] + "; " + arr[indexThree]);
+
     }
 }

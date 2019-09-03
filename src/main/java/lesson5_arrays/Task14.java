@@ -7,10 +7,14 @@ public class Task14 {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter size:");
-        int arrSize = sc.nextInt();
+        int size;
 
-        double[] arr = new double[arrSize];
+        do {
+            System.out.println("Enter valid size of the array:");
+            size = sc.nextInt();
+        } while (size <= 0);
+
+        double[] arr = new double[size];
 
         System.out.println("Enter elements:");
         for (int i = 0; i < arr.length; i++) {

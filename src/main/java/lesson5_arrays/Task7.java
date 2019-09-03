@@ -36,6 +36,7 @@ public class Task7 {
             index++;
         }
 
+        System.out.println("The result array has elements: ");
         for (int i = 0; i < secondArr.length; i++) {
             System.out.print(secondArr[i] + " ");
         }

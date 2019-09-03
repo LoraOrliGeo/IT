@@ -7,8 +7,14 @@ public class Task8 {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter size of the array:");
-        int[] arr = new int[sc.nextInt()];
+        int size;
+
+        do {
+            System.out.println("Enter valid size of the array:");
+            size = sc.nextInt();
+        } while (size <= 0);
+
+        int[] arr = new int[size];
 
         System.out.println("Enter elements for the array");
         for (int i = 0; i < arr.length; i++) {
@@ -36,7 +42,11 @@ public class Task8 {
 
         System.out.print("Longest sequence of equal numbers is: ");
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.print(arr[i] + " ");
+            if (i == endIndex) {
+                System.out.print(arr[i]);
+            } else {
+                System.out.print(arr[i] + ", ");
+            }
         }
     }
 }

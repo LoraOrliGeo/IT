@@ -10,7 +10,7 @@ public class Task11 {
         int[] arr = new int[7];
         int count = 0;
 
-        System.out.println("Enter elements of the arrays:");
+        System.out.println("Enter elements of the array:");
         for (int i = 0; i < arr.length; i++) {
             arr[i] = sc.nextInt();
 

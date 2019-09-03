@@ -7,6 +7,7 @@ public class Task3 {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Please, enter a number:");
         int number = sc.nextInt();
 
         int[] arr = new int[10];
@@ -18,7 +19,7 @@ public class Task3 {
             arr[i] = arr[i - 1] + arr[i - 2];
         }
 
-        System.out.print("[");
+        System.out.print("The result array is: [");
         for (int i = 0; i < arr.length; i++) {
             if (i == arr.length - 1){
                 System.out.print(arr[i] + "]");

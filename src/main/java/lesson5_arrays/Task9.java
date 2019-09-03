@@ -7,9 +7,15 @@ public class Task9 {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter VALID size of the array:");
-        int size = sc.nextInt();
+        int size;
+
+        do {
+            System.out.println("Enter VALID size of the array:");
+            size = sc.nextInt();
+        } while (size <= 0);
+
         int[] arr = new int[size];
+
         int[] oppositeArr = new int[size];
 
         System.out.println("Enter elements for the array");
@@ -18,8 +24,13 @@ public class Task9 {
             oppositeArr[oppositeArr.length - i - 1 ] = arr[i];
         }
 
+        System.out.print("The result array is: [");
         for (int i = 0; i < oppositeArr.length; i++){
-            System.out.print(oppositeArr[i] + " ");
+            if (i == oppositeArr.length - 1){
+                System.out.print(oppositeArr[i] + "]");
+            } else {
+                System.out.print(oppositeArr[i] + ", ");
+            }
         }
     }
 }

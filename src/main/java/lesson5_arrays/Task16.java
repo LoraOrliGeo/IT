@@ -10,10 +10,12 @@ public class Task16 {
 
         double[] arr = new double[10];
 
+        System.out.println("Enter elements:");
         for (int i = 0; i < arr.length; i++) {
             arr[i] = sc.nextDouble();
         }
 
+        System.out.print("The initial values of the array are: ");
         System.out.println(Arrays.toString(arr));
 
         for (int i = 0; i < arr.length; i++) {
@@ -24,9 +26,10 @@ public class Task16 {
             }
         }
 
+        System.out.print("The new value of the array are: {");
         for (int i = 0; i < arr.length; i++) {
             if (i == 9){
-                System.out.print(arr[i]);
+                System.out.print(arr[i] + "]");
             } else {
                 System.out.print(arr[i] + ", ");
             }

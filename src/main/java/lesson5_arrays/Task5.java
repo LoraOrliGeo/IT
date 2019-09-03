@@ -5,7 +5,7 @@ public class Task5 {
 
         int[] arr = new int[10];
 
-        System.out.print("[");
+        System.out.print("The result array is: [");
         for (int i = 0; i < arr.length; i++) {
             arr[i] = i * 3;
 
