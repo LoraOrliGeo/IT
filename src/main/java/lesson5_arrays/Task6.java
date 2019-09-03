@@ -25,7 +25,7 @@ public class Task6 {
         }
 
         System.out.println("Enter elements for the second array");
-        for (int i = 0; i < firstArr.length; i++) {
+        for (int i = 0; i < secondArr.length; i++) {
             secondArr[i] = sc.nextInt();
         }
 

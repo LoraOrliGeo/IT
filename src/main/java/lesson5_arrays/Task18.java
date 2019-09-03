@@ -8,8 +8,27 @@ public class Task18 {
 
         Scanner sc = new Scanner(System.in);
 
-        int[] firstArr = Arrays.stream(sc.nextLine().split(", ")).mapToInt(Integer::parseInt).toArray();
-        int[] secondArr = Arrays.stream(sc.nextLine().split(", ")).mapToInt(Integer::parseInt).toArray();
+        int firstSize;
+        int secondSize;
+
+        do {
+            System.out.println("Enter a valid size for the first and second array:");
+            firstSize = sc.nextInt();
+            secondSize = sc.nextInt();
+        } while (firstSize <= 0 || secondSize <= 0);
+
+        int[] firstArr = new int[firstSize];
+        int[] secondArr = new int[secondSize];
+
+        System.out.println("Enter elements for the first array:");
+        for (int i = 0; i < firstArr.length; i++) {
+            firstArr[i] = sc.nextInt();
+        }
+
+        System.out.println("Enter elements for the second array:");
+        for (int i = 0; i < secondArr.length; i++) {
+            secondArr[i] = sc.nextInt();
+        }
 
         int end = firstArr.length;
 

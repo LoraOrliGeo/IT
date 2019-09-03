@@ -20,14 +20,14 @@ public class Task12 {
         arr[1] = temp;
 
         //swap third and fourth elements using addition
-        int sum = arr[2] + arr[3];
-        arr[2] = sum - arr[2];
-        arr[3] = sum - arr[3];
+        arr[3] = arr[2] + arr[3];
+        arr[2] = arr[3] - arr[2];
+        arr[3] = arr[3] - arr[2];
 
         //swap fifth and sixth elements using multiplication
-        int product = arr[4] * arr[5];
-        arr[4] = product / arr[4];
-        arr[5] = product / arr[5];
+        arr[4] = arr[4] * arr[5];
+        arr[5] = arr[4] / arr[5];
+        arr[4] = arr[4] / arr[5];
 
         for (int i = 0; i < arr.length; i++) {
             if (i == arr.length - 1){

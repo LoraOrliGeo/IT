@@ -12,47 +12,50 @@ public class Task15 {
         do {
             System.out.println("Enter valid size of the array:");
             size = sc.nextInt();
-        } while (size <= 0);
+        } while (size < 3);
 
         double[] arr = new double[size];
-
-        double[] absValuesArr = new double[size];
-
-        double maxOne = Double.MIN_VALUE;
-        double maxTwo = Double.MIN_VALUE;
-        double maxThree = Double.MIN_VALUE;
-
-        int indexOne = 0;
-        int indexTwo = 0;
-        int indexThree = 0;
 
         System.out.println("Enter elements:");
         for (int i = 0; i < arr.length; i++) {
             arr[i] = sc.nextDouble();
+        }
 
-            if (arr[i] < 0){
-                absValuesArr[i] = arr[i] * -1;
-            } else {
-                absValuesArr[i] = arr[i];
-            }
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                double absFirst = arr[i] >= 0 ? arr[i] : arr[i] * -1;
+                double absSecond = arr[j] >= 0 ? arr[j] : arr[j] * -1;
 
-            if (absValuesArr[i] > maxOne){
-                maxOne = arr[i];
-                indexOne = i;
-            }
-
-            if (absValuesArr[i] < maxOne && absValuesArr[i] > maxTwo){
-                maxTwo = arr[i];
-                indexTwo = i;
-            }
-
-            if (absValuesArr[i] < maxTwo && absValuesArr[i] > maxThree){
-                maxThree = arr[i];
-                indexThree = i;
+                if (absFirst < absSecond){
+                    double temp = arr[j];
+                    arr[j] = arr[i];
+                    arr[i] = temp;
+                }
             }
         }
 
-        System.out.println(arr[indexOne] + "; " + arr[indexTwo] + "; " + arr[indexThree]);
+        double first = arr[0];
+        double second = 0;
+        double third = 0;
 
+        boolean haveThreeDiff = false;
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] != first && second == 0){
+                second = arr[i];
+            }
+
+            if (arr[i] != second && second != 0){
+                third = arr[i];
+                haveThreeDiff = true;
+                break;
+            }
+        }
+
+        if (haveThreeDiff) {
+            System.out.println(third + "; " + second + "; " + first);
+        } else {
+            System.out.println("There aren't three different elements");
+        }
     }
 }

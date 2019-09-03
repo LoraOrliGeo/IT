@@ -8,6 +8,7 @@ public class Task11 {
         Scanner sc = new Scanner(System.in);
 
         int[] arr = new int[7];
+
         int count = 0;
 
         System.out.println("Enter elements of the array:");

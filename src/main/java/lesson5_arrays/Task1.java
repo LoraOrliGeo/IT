@@ -17,6 +17,7 @@ public class Task1 {
         int[] arr = new int[size];
 
         int minNumDivisibleBy3 = Integer.MAX_VALUE;
+        boolean hasNumDivByThree = false;
 
         System.out.println("Enter values for each cell:");
         for (int i = 0; i < arr.length; i++) {
@@ -24,9 +25,14 @@ public class Task1 {
 
             if (arr[i] % 3 == 0 && arr[i] < minNumDivisibleBy3) {
                 minNumDivisibleBy3 = arr[i];
+                hasNumDivByThree = true;
             }
         }
 
-        System.out.println("The smallest number divisible by 3 is " + minNumDivisibleBy3);
+        if (hasNumDivByThree) {
+            System.out.println("The smallest number divisible by 3 is " + minNumDivisibleBy3);
+        } else {
+            System.out.println("None of the numbers in the array is divisible by 3");
+        }
     }
 }

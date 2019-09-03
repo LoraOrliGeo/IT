@@ -25,15 +25,8 @@ public class Task7 {
         secondArr[0] = firstArr[0];
         secondArr[firstArr.length - 1] = firstArr[firstArr.length - 1];
 
-        int index = 1;
-        for (int i = 0; i < firstArr.length; i++) {
-            secondArr[index] = firstArr[i] + firstArr[i + 2];
-
-            if (index == firstArr.length - 2) {
-                break;
-            }
-
-            index++;
+        for (int i = 1; i < firstArr.length - 1; i++) {
+            secondArr[i] = firstArr[i - 1] + firstArr[i + 1];
         }
 
         System.out.println("The result array has elements: ");
