@@ -6,11 +6,17 @@ public class Task4 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        String input;
 
-        String[] names = sc.nextLine().split(", ");
+        do {
+            System.out.println("Enter two names:");
+            input = sc.nextLine();
+        } while (!validateInput(input));
 
         int maxNameSum = 0;
         String maxName = "";
+
+        String[] names = input.split(", ");
 
         for (String name : names) {
             int nameSum = 0;
@@ -20,12 +26,25 @@ public class Task4 {
                 }
             }
 
-            if (nameSum >= maxNameSum){
+            if (nameSum >= maxNameSum) {
                 maxNameSum = nameSum;
                 maxName = name;
             }
         }
 
         System.out.println(maxName);
+    }
+
+    public static boolean validateInput(String input) {
+        String[] names = input.split(", ");
+        if (names.length != 2) {
+            return false;
+        }
+        for (String name : names) {
+            if (name.split(" ").length != 3) {
+                return false;
+            }
+        }
+        return true;
     }
 }

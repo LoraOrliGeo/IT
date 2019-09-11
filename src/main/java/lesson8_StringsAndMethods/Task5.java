@@ -11,40 +11,40 @@ public class Task5 {
         String firstWord = sc.nextLine();
         String secondWord = sc.nextLine();
 
-        char[][] matrix = new char[firstWord.length()][secondWord.length()];
-
-        int minLength = firstWord.length();
-
-        if (secondWord.length() < firstWord.length()) {
-            minLength = secondWord.length();
-        }
+        char[][] matrix = new char[secondWord.length()][firstWord.length()];
 
         boolean haveCrossingPoint = false;
-        int firstCol = 0;
-        int secondRow = 0;
+        int firstWordRow = 0;
+        int secondWordCol = 0;
 
-        for (int i = 0; i < minLength; i++) {
-            if (firstWord.charAt(i) == secondWord.charAt(i)) {
-                haveCrossingPoint = true;
-                firstCol = i;
-                secondRow = i;
+        for (int i = 0; i < firstWord.length(); i++) {
+            for (int j = 0; j < secondWord.length(); j++) {
+                if (firstWord.charAt(i) == secondWord.charAt(j)) {
+                    haveCrossingPoint = true;
+                    firstWordRow = j;
+                    secondWordCol = i;
+                    break;
+                }
+            }
+            if (haveCrossingPoint){
                 break;
             }
         }
 
         if (haveCrossingPoint) {
             for (int i = 0; i < matrix.length; i++) {
-                matrix[i][firstCol] = firstWord.charAt(i);
+                matrix[i][secondWordCol] = secondWord.charAt(i);
             }
 
-            matrix[secondRow] = secondWord.toCharArray();
+            matrix[firstWordRow] = firstWord.toCharArray();
 
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[i].length; j++) {
                     if (matrix[i][j] == '\u0000') {
                         System.out.print(" ");
+                    } else {
+                        System.out.print(matrix[i][j]);
                     }
-                    System.out.print(matrix[i][j]);
                 }
                 System.out.println();
             }

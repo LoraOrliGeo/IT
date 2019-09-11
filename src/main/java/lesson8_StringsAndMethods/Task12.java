@@ -1,5 +1,6 @@
 package lesson8_StringsAndMethods;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Task12 {
@@ -15,7 +16,7 @@ public class Task12 {
         } while (n <= 0);
 
         int[] array = createArray(n);
-        Task11.printArray(array);
+        System.out.println(Arrays.toString(array));
     }
 
     private static int[] createArray(int n) {

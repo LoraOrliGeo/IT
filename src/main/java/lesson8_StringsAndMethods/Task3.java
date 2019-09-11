@@ -5,33 +5,46 @@ import java.util.Scanner;
 public class Task3 {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
-        String firstWord = sc.nextLine();
-        String secondWord = sc.nextLine();
+        String firstWord = readWordWithoutSpace();
+        String secondWord = readWordWithoutSpace();
 
         System.out.println(firstWord.length() == secondWord.length() ?
                 "The words have same length." : "The words have different length");
 
-        int minLength = firstWord.length();
+        findDifferences(firstWord, secondWord);
 
-        if (firstWord.length() > secondWord.length()){
-            minLength = secondWord.length();
-        }
+    }
 
-        int count = 0;
+    public static String readWordWithoutSpace() {
+        Scanner sc = new Scanner(System.in);
+        String word;
 
-        for (int i = 0; i < minLength; i++) {
+        do {
+            System.out.println("Enter word without space:");
+            word = sc.nextLine();
+        } while (word.contains(" "));
+
+        return word;
+    }
+
+    public static void findDifferences(String firstWord, String secondWord) {
+        int shorterLength = getShorterWord(firstWord, secondWord);
+
+        boolean firstDiff = true;
+        for (int i = 0; i < shorterLength; i++) {
             char firstChar = firstWord.charAt(i);
             char secondChar = secondWord.charAt(i);
             if (firstChar != secondChar) {
-                if (count == 0){
+                if (firstDiff) {
                     System.out.println("Difference by positions:");
+                    firstDiff = false;
                 }
-                count++;
                 System.out.printf("%d %c-%c%n", i + 1, firstChar, secondChar);
             }
         }
+    }
 
+    public static int getShorterWord(String firstWord, String secondWord) {
+        return firstWord.length() < secondWord.length() ? firstWord.length() : secondWord.length();
     }
 }

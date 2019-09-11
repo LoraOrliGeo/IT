@@ -12,7 +12,7 @@ public class Task14 {
         do {
             System.out.println("Enter positive number:");
             num = sc.nextInt();
-        } while (num <= 0);
+        } while (num < 0);
 
         System.out.println(num + "! = " + calcFactorial(num));
     }

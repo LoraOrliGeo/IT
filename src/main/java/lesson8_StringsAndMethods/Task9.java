@@ -7,6 +7,7 @@ public class Task9 {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Enter input:");
         String input = sc.nextLine();
         int sum = 0;
 
@@ -14,6 +15,8 @@ public class Task9 {
             char symbol = input.charAt(i);
 
             if (isDigit(symbol) || isDash(symbol)) {
+
+
                 int num;
                 if (isDash(symbol)) {
                     num = 0;
@@ -21,15 +24,22 @@ public class Task9 {
                     num = symbol - '0';
                 }
 
+                boolean digitExistsAfterDash = false;
+
                 for (int j = i + 1; j < input.length(); j++) {
                     char sym = input.charAt(j);
                     if (isDigit(sym)) {
+                        digitExistsAfterDash = true;
                         num *= 10;
                         num += sym - '0';
                         i++;
                     } else {
                         break;
                     }
+                }
+
+                if (!digitExistsAfterDash){
+                    continue;
                 }
 
                 if (isDash(symbol)) {

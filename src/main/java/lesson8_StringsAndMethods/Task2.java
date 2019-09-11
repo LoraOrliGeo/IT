@@ -5,18 +5,8 @@ import java.util.Scanner;
 public class Task2 {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
-        String input;
-
-        do {
-            System.out.println("Enter sequentially two words (length 10-20 symbols each)");
-            input = sc.nextLine();
-        } while (10 > input.length() || input.length() > 20);
-
-        String[] words = input.split("\\s+");
-        String firstWord = words[0];
-        String secondWord = words[1];
+        String firstWord = readWord();
+        String secondWord = readWord();
 
         String firstOld = getFirstFiveSymbols(firstWord);
         String secondOld = getFirstFiveSymbols(secondWord);
@@ -29,7 +19,7 @@ public class Task2 {
 
         int maxLength = firstWord.length();
 
-        if (secondWord.length() > firstWord.length()){
+        if (secondWord.length() > firstWord.length()) {
             maxLength = secondWord.length();
         }
 
@@ -37,7 +27,20 @@ public class Task2 {
         System.out.printf("Words after replacements: %s %s", firstWord, secondWord);
     }
 
-    public static String getFirstFiveSymbols(String word){
-        return String.valueOf(word.subSequence(0,5));
+    public static String readWord() {
+        Scanner sc = new Scanner(System.in);
+
+        String word;
+
+        do {
+            System.out.println("Enter word with length between 10 and 20 symbols:");
+            word = sc.nextLine();
+        } while (!(10 <= word.length() && word.length() <= 20));
+
+        return word;
+    }
+
+    public static String getFirstFiveSymbols(String word) {
+        return String.valueOf(word.subSequence(0, 5));
     }
 }

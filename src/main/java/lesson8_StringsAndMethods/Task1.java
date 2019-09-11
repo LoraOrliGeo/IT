@@ -5,21 +5,27 @@ import java.util.Scanner;
 public class Task1 {
     public static void main(String[] args) {
 
+        String first = readWord();
+        String second = readWord();
+
+        printWord(first);
+        printWord(second);
+    }
+
+    public static String readWord() {
         Scanner sc = new Scanner(System.in);
 
-        String input;
+        String word;
 
         do {
-            System.out.println("Enter two strings with total length less than 40 symbols:");
-            input = sc.nextLine();
-        } while (input.length() >= 40);
+            System.out.println("Enter word with length less than or 40 symbols:");
+            word = sc.nextLine();
+        } while (word.length() > 40);
 
-        String[] words = input.split("\\s+");
+        return word;
+    }
 
-        for (int i = 0; i < words.length; i++) {
-            System.out.print(words[i].toUpperCase() + " ");
-            System.out.print(words[i].toLowerCase() + " ");
-        }
-
+    public static void printWord(String word) {
+        System.out.println(String.format("%s %s", word.toUpperCase(), word.toLowerCase()));
     }
 }
