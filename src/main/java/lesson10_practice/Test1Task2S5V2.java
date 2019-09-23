@@ -2,7 +2,7 @@ package lesson10_practice;
 
 import java.util.Scanner;
 
-public class Test1Task2S5 {
+public class Test1Task2S5V2 {
     public static void main(String[] args) {
 
         /*
@@ -20,7 +20,7 @@ public class Test1Task2S5 {
     }
 
     private static String findRatioBetweenUpperAndLowerCaseLetter(String input) {
-        String ratio = "";
+        String ratio;
 
         int countUpper = 0;
         int countLower = 0;

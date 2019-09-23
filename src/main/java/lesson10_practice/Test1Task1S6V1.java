@@ -2,7 +2,7 @@ package lesson10_practice;
 
 import java.util.Scanner;
 
-public class Test1Task1S6 {
+public class Test1Task1S6V1 {
     public static void main(String[] args) {
 
         // read two symbols with a single space between them
@@ -36,7 +36,7 @@ public class Test1Task1S6 {
             }
             counter++;
             if (card1 == 'A' && card2 == 'A') {
-                System.out.println(counter);
+                System.out.println("Number of tries : " + counter);
                 break;
             }
         }

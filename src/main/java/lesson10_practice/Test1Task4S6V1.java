@@ -1,6 +1,6 @@
 package lesson10_practice;
 
-public class Test1Task4S6 {
+public class Test1Task4S6V1 {
     public static void main(String[] args) {
 
         /*
@@ -28,7 +28,7 @@ public class Test1Task4S6 {
         int kJ = 5;
 
         boolean canTakeKing = canHorseTakeKing(chessboard, hI, hJ, kI, kJ);
-        // canTakeKing = true;
+        System.out.println(canTakeKing); // true
     }
 
     private static boolean canHorseTakeKing(char[][] chessboard, int hI, int hJ, int kI, int kJ) {
@@ -48,27 +48,33 @@ public class Test1Task4S6 {
         // if the move is valid -> mark current cell of the horse as "X"
         // call the function with the new coordinates
 
-        if (isInvalidCell(firstMove)) {
+        if (isInvalidCell(hI, hJ)) {
             return false;
         }
 
-        if (chessboard[firstMove[0]][firstMove[1]] == 'X') {
+        if (chessboard[hI][hJ] == 'X') {
             return false;
         }
 
-        if (firstMove[0] == kI && firstMove[1] == kJ) {
+        if (hI == kI && hJ == kJ) {
             return true;
         }
 
         chessboard[hI][hJ] = 'X';
         boolean jumpFirstMove = canHorseTakeKing(chessboard, firstMove[0], firstMove[1], kI, kJ);
         boolean jumpSecondMove = canHorseTakeKing(chessboard, secondMove[0], secondMove[1], kI, kJ);
+        boolean jumpThirdMove = canHorseTakeKing(chessboard, thirdMove[0], thirdMove[1], kI, kJ);
+        boolean jumpFourthMove = canHorseTakeKing(chessboard, fourthMove[0], fourthMove[1], kI, kJ);
+        boolean jumpFifthMove = canHorseTakeKing(chessboard, fifthMove[0], fifthMove[1], kI, kJ);
+        boolean jumpSixthMove = canHorseTakeKing(chessboard, sixthMove[0], sixthMove[1], kI, kJ);
+        boolean jumpSeventhMove = canHorseTakeKing(chessboard, seventhMove[0], seventhMove[1], kI, kJ);
+        boolean jumpEighthMove = canHorseTakeKing(chessboard, eighthMove[0], eighthMove[1], kI, kJ);
 
-        return jumpFirstMove || jumpSecondMove; // || jumpThirdMove || jumpFourthMove || jumpFifthMove ||
-        //jumpSixthMove || jumpSeventhMove || jumpEighthMove;
+        return jumpFirstMove || jumpSecondMove || jumpThirdMove || jumpFourthMove || jumpFifthMove ||
+                jumpSixthMove || jumpSeventhMove || jumpEighthMove;
     }
 
-    public static boolean isInvalidCell(int[] coord) {
-        return coord[0] < 0 || coord[0] > 7 || coord[1] < 0 || coord[1] > 7;
+    private static boolean isInvalidCell(int i, int j) {
+        return i < 0 || i > 7 || j < 0 || j > 7;
     }
 }

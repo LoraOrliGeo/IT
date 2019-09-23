@@ -1,9 +1,8 @@
 package lesson10_practice;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Test1Task2S6 {
+public class Test1Task2S6V1 {
     public static void main(String[] args) {
 
         /*
@@ -22,23 +21,21 @@ public class Test1Task2S6 {
 
         Scanner sc = new Scanner(System.in);
         String text = sc.nextLine();
-        System.out.println(getLengthLongestSentence(text)[0]);
-        System.out.println(getLengthLongestSentence(text)[1]);
+
+        String[] sentences = text.split("[ ][A-Z]");
+
+        System.out.println("Longest sentence length is " + getLengthLongestSentence(sentences));
+        System.out.println(sentences.length + " sentences in the text.");
     }
 
-    public static int[] getLengthLongestSentence(String text){
-        int[] output = new int[2];
-        String[] sentences = text.split("[A-Z]");
-        int maxLength = sentences[0].length();
-        for (int i = 0; i < sentences.length; i++) {
+    private static int getLengthLongestSentence(String[] sentences){
+        int maxLength = sentences[0].length() - 1;
+        for (int i = 1; i < sentences.length; i++) {
             int currLength = sentences[i].length();
-
             if (currLength > maxLength){
                 maxLength = currLength;
             }
         }
-        output[0] = maxLength;
-        output[1] = sentences.length - 1;
-        return output;
+        return maxLength + 1;
     }
 }

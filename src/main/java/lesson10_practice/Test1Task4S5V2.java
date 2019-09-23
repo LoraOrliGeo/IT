@@ -3,7 +3,7 @@ package lesson10_practice;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Test1Task4S5 {
+public class Test1Task4S5V2 {
     public static void main(String[] args) {
 
         /*
@@ -31,7 +31,8 @@ public class Test1Task4S5 {
         // read int number N - size of the “Minesweeper” -> >= 4 (it should fit 10 mines)
         // read coordinates of 10 different mines
         // insert the mines in the matrix -> put '*'
-        // call method to fill the matrix with numbers corresponding to the number of mines that exist right next to each cell
+        // call method to fill the matrix with numbers corresponding to the number of mines
+        // that exist right next to each cell
 
         Scanner sc = new Scanner(System.in);
 

@@ -1,6 +1,6 @@
 package lesson10_practice;
 
-public class Test1Task3S6 {
+public class Test1Task3S6V1 {
     public static void main(String[] args) {
 
         // write a method that by given array of integers verifies whether all
@@ -16,7 +16,7 @@ public class Test1Task3S6 {
         System.out.println(hasNegativeRec);
     }
 
-    public static boolean hasNegativeNumber(int[] arr) {
+    private static boolean hasNegativeNumber(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] < 0){
                 return true;
@@ -25,7 +25,7 @@ public class Test1Task3S6 {
         return false;
     }
 
-    public static boolean hasNegativeNumberRec(int[] arr, int i) {
+    private static boolean hasNegativeNumberRec(int[] arr, int i) {
         // base case
         if (i == arr.length){
             return false;
