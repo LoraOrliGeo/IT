@@ -1,4 +1,4 @@
-package module_two.lesson13_classes_objects;
+package module_two.lesson13_classes_objects.lecture;
 
 public class CarDemo {
     public static void main(String[] args) {

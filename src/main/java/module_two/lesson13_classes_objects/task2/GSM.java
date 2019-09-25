@@ -30,15 +30,17 @@ public class GSM {
     }
 
     void call(GSM receiver, int duration) {
+        if (!validateParameters(receiver, duration)) {
+            return;
+        }
+
         Call call = new Call();
         call.receiver = receiver;
         call.duration = duration;
 
-        if (validateParameters(receiver, duration)) {
-            this.lastOutgoingCall = call;
-            receiver.lastIncomingCall = call;
-            outgoingCallsDuration += duration;
-        }
+        this.lastOutgoingCall = call;
+        receiver.lastIncomingCall = call;
+        outgoingCallsDuration += duration;
     }
 
     private boolean validateParameters(GSM receiver, int duration) {
