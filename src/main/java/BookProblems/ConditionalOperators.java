@@ -37,7 +37,52 @@ public class ConditionalOperators {
 //        task4(num);
 
         //5
+//        System.out.println("Enter coordinates of 2 fields:");
+//        int x1 = sc.nextInt();
+//        int y1 = sc.nextInt();
+//        int x2 = sc.nextInt();
+//        int y2 = sc.nextInt();
+//        if (!validateCoordinates(x1, y1) || validateCoordinates(x2, y2)) {
+//            System.out.println("You've entered invalid coordinates!");
+//        } else {
+//            System.out.println(task5CheckTwoFieldsColor(x1, y1, x2, y2));
+//        }
 
+        //6
+//        int num;
+////        do {
+////            System.out.println("Enter 4-digit number:");
+////            num = sc.nextInt();
+////        } while (num < 1000 || num > 9999);
+////        System.out.println(task6CheckIfNumberContainsZero(num));
+
+        //7
+//        System.out.println("Enter day, month and year:");
+//        int day = sc.nextInt();
+//        int month = sc.nextInt();
+//        int year = sc.nextInt();
+//        if (!validateDate(day, month, year)) {
+//            System.out.println("You've entered invalid date!");
+//        } else {
+//            System.out.println(task7NumberOfDays(day, month, year));
+//        }
+
+        //8 -> цистерна + кофи 2 и 3 литра
+
+        //9
+//        int hour;
+//        do {
+//            System.out.println("Enter an hour [0...24]");
+//            hour = sc.nextInt();
+//        } while (hour < 0 || hour > 24);
+//
+//        if (hour >= 18 || hour <= 4){
+//            System.out.println("Good evening!");
+//        } else if (hour <= 9){
+//            System.out.println("Good morning!");
+//        } else {
+//            System.out.println("Good day!");
+//        }5
     }
 
     private static void task1CheckIfNumIsDivisibleByItsDigits(int num) {
@@ -92,13 +137,13 @@ public class ConditionalOperators {
     private static String task3GetMessageAccordingToDegrees(int degrees) {
         String output;
 
-        if (degrees < -20){
+        if (degrees < -20) {
             output = "freezing cold";
-        } else if (degrees <= -1){
+        } else if (degrees <= -1) {
             output = "cold";
-        } else if (degrees <= 14){
+        } else if (degrees <= 14) {
             output = "cool";
-        } else if (degrees <= 25){
+        } else if (degrees <= 25) {
             output = "warm";
         } else {
             output = "hot";
@@ -113,14 +158,70 @@ public class ConditionalOperators {
         int tens = num / 10;
         int ones = num % 10;
 
-        if (hundreds == tens && tens == ones){
+        if (hundreds == tens && tens == ones) {
             System.out.println("The digits are equal.");
-        } else if (hundreds > tens && tens > ones){
+        } else if (hundreds > tens && tens > ones) {
             System.out.println("The digits are in ascending order.");
-        } else if (hundreds < tens && tens < ones){
+        } else if (hundreds < tens && tens < ones) {
             System.out.println("The digits are in descending order.");
         } else {
             System.out.println("The digits are unordered.");
         }
+    }
+
+    private static String task5CheckTwoFieldsColor(int x1, int y1, int x2, int y2) {
+
+        int firstCoordinatesSum = x1 + y1;
+        int secondCoordinatesSum = x2 + y2;
+
+        if ((firstCoordinatesSum % 2 == 0 && secondCoordinatesSum % 2 != 0) ||
+                (firstCoordinatesSum % 2 != 0 && secondCoordinatesSum % 2 == 0)) {
+            return "The two fields are with different color!";
+        }
+
+        return "The two fields are with same color!";
+    }
+
+    private static boolean validateCoordinates(int x, int y) {
+        return x >= 0 && x < 8 || y >= 0 && y < 8;
+    }
+
+    private static boolean task6CheckIfNumberContainsZero(int num) {
+        return (num + "").contains("0");
+    }
+
+    private static int task7NumberOfDays(int day, int month, int year) {
+        int countDays = 0;
+
+        int[] daysInMonths = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        if (isLeapYear(year)) {
+            daysInMonths[1] = 29;
+        }
+
+        countDays += day;
+
+        for (int i = 0; i < month - 1; i++) {
+            countDays += daysInMonths[i];
+        }
+
+        return countDays;
+    }
+
+    private static boolean validateDate(int day, int month, int year) {
+        int[] daysInMonths = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        if (isLeapYear(year) && month == 2) {
+            return day <= 29;
+        } else {
+            if (month >= 1 && month <= 12) {
+                return day < daysInMonths[month - 1];
+            }
+        }
+        return false;
+    }
+
+    private static boolean isLeapYear(int year) {
+        return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
     }
 }
