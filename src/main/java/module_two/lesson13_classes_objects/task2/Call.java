@@ -4,5 +4,5 @@ public class Call {
     static double priceForAMinute;
     GSM caller;
     GSM receiver;
-    int duration; // min
+    int duration; // minutes
 }

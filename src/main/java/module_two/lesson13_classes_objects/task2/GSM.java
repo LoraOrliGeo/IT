@@ -7,7 +7,7 @@ public class GSM {
     String model;
     boolean hasSimCard;
     String simMobileNumber;
-    int outgoingCallsDuration; // min
+    int outgoingCallsDuration; // minutes
     Call lastIncomingCall;
     Call lastOutgoingCall;
 
@@ -16,17 +16,18 @@ public class GSM {
             this.simMobileNumber = simMobileNumber;
             hasSimCard = true;
         } else {
-            // in the problem's description it's not specified that it should print a message
             System.out.println("Invalid sim number!");
-            // and it's not a good practice to print directly in the method... I think
         }
     }
 
     private boolean validateSimMobileNumber(String number) {
-        String regex = "^08[0-9]{8}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(number);
-        return matcher.find();
+        if (number != null) {
+            String regex = "^08[0-9]{8}$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(number);
+            return matcher.find();
+        }
+        return false;
     }
 
     void removeSimCard() {
@@ -45,7 +46,7 @@ public class GSM {
 
         this.lastOutgoingCall = call;
         receiver.lastIncomingCall = call;
-        outgoingCallsDuration += duration;
+        this.outgoingCallsDuration += duration;
     }
 
     private boolean validateParameters(GSM receiver, int duration) {
@@ -53,14 +54,16 @@ public class GSM {
         boolean isSameNumber = false;
         boolean bothHasSimCard = false;
         if (receiver != null) {
-            isSameNumber = receiver.simMobileNumber.equals(this.simMobileNumber);
+            if (this.simMobileNumber != null) {
+                isSameNumber = receiver.simMobileNumber.equals(this.simMobileNumber);
+            }
             bothHasSimCard = receiver.hasSimCard && this.hasSimCard;
         }
         return validDuration && isSameNumber && bothHasSimCard;
     }
 
     double getSumForCall() {
-        return outgoingCallsDuration * Call.priceForAMinute;
+        return this.outgoingCallsDuration * Call.priceForAMinute;
     }
 
     void printInfoForTheLastOutgoingCall() {
