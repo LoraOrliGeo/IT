@@ -1,6 +1,11 @@
 package module_two.lesson13_classes_objects.task2_students;
 
 public class Student {
+    private static final int YEARS_OF_EDUCATION = 4;
+    private static final int MAX_YEARS_SCHOLARSHIP = 30;
+    private static final int MIN_GRADE = 2;
+    private static final int MAX_GRADE = 6;
+
     private String name;
     private String subject;
     private double grade;
@@ -18,17 +23,29 @@ public class Student {
 
     public Student(String name, String subject, int age) {
         this();
-        this.name = name;
-        this.subject = subject;
-        this.age = age;
+        this.setName(name);
+        this.setSubject(subject);
+        this.setAge(age);
     }
 
     public String getName() {
         return this.name;
     }
 
+    private void setName(String name) {
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        }
+    }
+
     public String getSubject() {
         return this.subject;
+    }
+
+    private void setSubject(String subject) {
+        if (subject != null && !subject.isEmpty()) {
+            this.subject = subject;
+        }
     }
 
     public double getGrade() {
@@ -36,13 +53,21 @@ public class Student {
     }
 
     public void setGrade(double grade) {
-        this.grade = grade;
+        if (MIN_GRADE <= grade && grade <= MAX_GRADE) {
+            this.grade = grade;
+        }
+    }
+
+    private void setAge(int age) {
+        if (age > 5) {
+            this.age = age;
+        }
     }
 
     public void upYear() {
         if (!this.isDegree) {
             this.yearInCollege++;
-            if (this.yearInCollege == 4) {
+            if (this.yearInCollege == YEARS_OF_EDUCATION) {
                 isDegree = true;
             }
         } else {
@@ -51,7 +76,7 @@ public class Student {
     }
 
     public double receiveScholarship(double min, double amount) {
-        if (this.grade >= min && this.age < 30) {
+        if (this.grade >= min && this.age < MAX_YEARS_SCHOLARSHIP) {
             this.money += amount;
         }
         return this.money;

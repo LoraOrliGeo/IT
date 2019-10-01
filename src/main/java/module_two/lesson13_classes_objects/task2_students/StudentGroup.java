@@ -2,6 +2,7 @@ package module_two.lesson13_classes_objects.task2_students;
 
 public class StudentGroup {
     private static final int STUDENTS_IN_GROUP = 5;
+
     private String groupSubject;
     private Student[] students;
     private int freeSpaces;
@@ -13,7 +14,13 @@ public class StudentGroup {
 
     public StudentGroup(String subject) {
         this();
-        this.groupSubject = subject;
+        this.setGroupSubject(subject);
+    }
+
+    private void setGroupSubject(String subject) {
+        if (subject != null && !subject.isEmpty()) {
+            this.groupSubject = subject;
+        }
     }
 
     public void addStudent(Student s) {
