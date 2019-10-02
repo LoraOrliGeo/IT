@@ -3,49 +3,19 @@ package module_two.lesson13_classes_objects.lecture;
 public class CarDemo {
     public static void main(String[] args) {
 
-        Car car1 = new Car();
-        car1.color = "red";
-        car1.model = "Porsche";
-        car1.currentGear = 1;
-        car1.currentSpeed = 80;
-        car1.maxSpeed = 300;
+        Car car = new Car("BMW", false, "black");
+        Person person = new Person("Lori", 1234567890, false);
 
-        Car car2 = new Car();
-        car2.color = "white";
-        car2.model = "Audi";
-        car2.currentGear = 2;
-        car2.currentSpeed = 245;
-        car2.maxSpeed = 250;
+        Car car2 = new Car("Moskvich", false, "pink");
 
-        car1.currentGear = 3;
-        car1.currentSpeed = 130;
+        car.setPrice(1250.63);
+        car2.setPrice(253.05);
+        System.out.println(car.isMoreExpensive(car2));
 
-        Person pesho = new Person();
-        pesho.name = "Pesho Peshev";
-        pesho.age = 21;
+        System.out.println("Price for scrap: " + car.calculateCarPriceForScrap(22.50));
 
-        car1.owner = pesho;
-
-        System.out.println("Owner's name: " + car1.owner.name);
-        System.out.println("Owner's age: " + car1.owner.age);
-
-        car2.accelerate();
-        car2.accelerate();
-        car2.accelerate();
-        car2.accelerate();
-        car2.accelerate();
-        System.out.println(car2.currentSpeed);
-
-        car2.changeGearUp();
-        System.out.println(car2.currentGear);
-
-        car1.changeGearDown();
-        System.out.println(car1.currentGear);
-
-        car2.changeGear(3);
-        System.out.println(car2.currentGear);
-
-        car1.changeColor("yellow");
-        System.out.println(car1.color);
+        person.setMoney(1500);
+        person.buyCar(car);
+        System.out.println(String.format("Money after sold car: %.2f%n", person.sellCarForScrap()));
     }
 }
