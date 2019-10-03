@@ -1,6 +1,8 @@
 package module_two.lesson13_classes_objects.lecture;
 
 public class Car {
+    private static int counterId = 1;
+    private int id;
     private String model;
     private int maxSpeed;
     private int currentSpeed;
@@ -17,6 +19,12 @@ public class Car {
         this.color = color;
         this.currentSpeed = 25;
         this.currentGear = 1;
+        this.id = Car.counterId;
+        counterId++;
+    }
+
+    String getModel() {
+        return this.model;
     }
 
     double getPrice() {
@@ -26,6 +34,24 @@ public class Car {
     void setPrice(double price) {
         if (price > 0) {
             this.price = price;
+        }
+    }
+
+    int getId() {
+        return this.id;
+    }
+
+    String getColor() {
+        return this.color;
+    }
+
+    int getMaxSpeed() {
+        return this.maxSpeed;
+    }
+
+    void setMaxSpeed(int maxSpeed) {
+        if (maxSpeed > 0) {
+            this.maxSpeed = maxSpeed;
         }
     }
 
@@ -94,5 +120,19 @@ public class Car {
 
     boolean isSoldForScrap() {
         return this.isSold;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("------- Car %d -------%n" +
+                        "Model: %s%n" +
+                        "Max speed: %d%n" +
+                        "Color: %s%n" +
+                        "Price: %.2f",
+                this.getId(),
+                this.getModel(),
+                this.getMaxSpeed(),
+                this.getColor(),
+                this.getPrice());
     }
 }

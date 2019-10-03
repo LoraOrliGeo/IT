@@ -29,6 +29,10 @@ public class Person {
         }
     }
 
+    Car getCar() {
+        return this.car;
+    }
+
     void eat() {
         System.out.println("Eating...");
     }
