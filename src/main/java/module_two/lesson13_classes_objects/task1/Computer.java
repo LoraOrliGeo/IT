@@ -45,14 +45,18 @@ public class Computer {
     }
 
     public int comparePrice(Computer c) {
-        if (c != null) {
-            if (this.getPrice() > c.getPrice()) {
-                return -1;
-            } else if (c.getPrice() > this.getPrice()) {
-                return 1;
-            }
+        if (c == null) {
+            System.out.println("The second computer does not exist!");
+            return 2;
         }
-        return 0;
+
+        if (this.getPrice() > c.getPrice()) {
+            return -1;
+        } else if (c.getPrice() > this.getPrice()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override

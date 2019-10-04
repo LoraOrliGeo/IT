@@ -3,7 +3,13 @@ package module_two.lesson13_classes_objects.task2_students;
 public class College {
     public static void main(String[] args) {
 
+        StudentGroup st = new StudentGroup(null);
+
+
         Student pesho = new Student("Petur Petrov", "mathematics", 18);
+
+        st.addStudent(pesho);
+
         pesho.upYear();
         pesho.setGrade(4.86);
         Student lori = new Student("Lora Georgieva", "chemistry", 20);
