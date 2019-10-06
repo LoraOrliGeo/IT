@@ -1,7 +1,5 @@
 package module_two.lesson17_inheritance.Task1;
 
-import java.util.Objects;
-
 public class Employee extends Person {
     private double daySalary;
     private double overtimeSalary;
