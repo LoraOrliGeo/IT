@@ -17,7 +17,7 @@ public class Employee extends Person {
     }
 
     public double calculateOvertime(double hours) {
-        if (this.getAge() < 18) {
+        if (this.getAge() < 18 || hours < 0) {
             return 0;
         }
 
@@ -27,6 +27,6 @@ public class Employee extends Person {
 
     public void showEmployeeInfo() {
         super.showPersonInfo();
-        System.out.println(String.format("Daily Salary: %.2f%n", this.daySalary));
+        System.out.println(String.format("Daily Salary: %.2f", this.daySalary));
     }
 }

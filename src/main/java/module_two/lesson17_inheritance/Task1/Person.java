@@ -38,7 +38,7 @@ public class Person {
     public void showPersonInfo() {
         System.out.println(String.format("Name: %s%n" +
                         "Age: %d%n" +
-                        "Gender: %s%n",
+                        "Gender: %s",
                 this.name.equals(DEFAULT_NAME) ? "-" : this.name,
                 this.age,
                 this.isMale ? "Male" : "Female"));

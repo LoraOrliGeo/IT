@@ -21,6 +21,6 @@ public class Student extends Person {
 
     public void showStudentInfo() {
         super.showPersonInfo();
-        System.out.println(String.format("Score: %.2f%n", this.score));
+        System.out.println(String.format("Score: %.2f", this.score));
     }
 }
