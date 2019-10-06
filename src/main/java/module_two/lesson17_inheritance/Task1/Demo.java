@@ -26,13 +26,13 @@ public class Demo {
 
             switch (type) {
                 case "Student":
-                    System.out.println(((Student) people[i]).showStudentInfo());
+                    ((Student) people[i]).showStudentInfo();
                     break;
                 case "Employee":
-                    System.out.println(((Employee) people[i]).showEmployeeInfo());
+                    ((Employee) people[i]).showEmployeeInfo();
                     break;
                 default:
-                    System.out.println(people[i].showPersonInfo());
+                    people[i].showPersonInfo();
                     break;
             }
         }

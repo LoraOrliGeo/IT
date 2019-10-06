@@ -19,7 +19,8 @@ public class Student extends Person {
         }
     }
 
-    public String showStudentInfo() {
-        return super.showPersonInfo() + String.format("Score: %.2f%n", this.score);
+    public void showStudentInfo() {
+        super.showPersonInfo();
+        System.out.println(String.format("Score: %.2f%n", this.score));
     }
 }

@@ -8,8 +8,8 @@ public class Person {
     private boolean isMale;
 
     public Person(String name, int age, boolean isMale) {
-        this.setName(name);
-        this.setAge(age);
+        setName(name);
+        setAge(age);
         this.isMale = isMale;
     }
 
@@ -35,12 +35,12 @@ public class Person {
         }
     }
 
-    public String showPersonInfo() {
-        return String.format("Name: %s%n" +
+    public void showPersonInfo() {
+        System.out.println(String.format("Name: %s%n" +
                         "Age: %d%n" +
                         "Gender: %s%n",
                 this.name.equals(DEFAULT_NAME) ? "-" : this.name,
                 this.age,
-                this.isMale ? "Male" : "Female");
+                this.isMale ? "Male" : "Female"));
     }
 }
