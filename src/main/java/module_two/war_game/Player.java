@@ -25,6 +25,11 @@ public class Player {
         }
     }
 
+    //test
+//    public void setInitCards(int[] initCards) {
+//        this.initCards = initCards;
+//    }
+
     void addCard(int card) {
         this.initCards[initCardIdx++] = card;
         this.hasCardsInDeck = true;
@@ -37,7 +42,7 @@ public class Player {
     }
 
     int getTopCard() {
-        if (initCardIdx <= 1) {
+        if (initCardIdx < 1) {
             this.hasCardsInDeck = false;
             return this.initCards[0];
         }
@@ -46,7 +51,15 @@ public class Player {
         return returnedCard;
     }
 
+    int getLastCard(){
+        return this.initCards[this.initCards.length - 1];
+    }
+
     int[] getInitCards() {
         return this.initCards;
+    }
+
+    int[] getWonCards() {
+        return this.wonCards;
     }
 }
