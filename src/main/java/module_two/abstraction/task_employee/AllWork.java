@@ -1,7 +1,7 @@
 package module_two.abstraction.task_employee;
 
 public class AllWork {
-    public static final int NUMBER_OF_TASKS = 3;
+    public static final int NUMBER_OF_TASKS = 10;
 
     private Task[] tasks;
     private int freePlacesForTasks;
