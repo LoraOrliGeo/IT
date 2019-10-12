@@ -56,7 +56,7 @@ public class Employee {
     }
 
     public static AllWork getAllWork() {
-        return allWork;
+        return Employee.allWork;
     }
 
     public static void setAllWork(AllWork allWork) {
