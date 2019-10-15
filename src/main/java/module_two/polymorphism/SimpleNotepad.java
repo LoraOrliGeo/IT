@@ -13,39 +13,45 @@ public class SimpleNotepad implements INotepad {
     }
 
     @Override
-    public void addTextToGivenPage(String text, int page) {
-        if (pageExists(page)) {
-            pages[page - 1].addText(text);
+    public void addTextToPage(String text, int page) {
+        if (!pageExists(page)) {
+            System.out.println("Page not exists!");
+            return;
         }
+        pages[page - 1].addText(text);
     }
 
     @Override
-    public void overrideTextToGivenPage(String text, int page) {
-        if (pageExists(page)) {
-            deleteTextFromGivenPage(page);
-            this.pages[page - 1].addText(text);
+    public void overridePageText(String text, int page) {
+        if (!pageExists(page)) {
+            System.out.println("Page not exists!");
+            return;
         }
+
+        deletePageText(page);
+        this.pages[page - 1].addText(text);
     }
 
     @Override
-    public void deleteTextFromGivenPage(int page) {
-        if (pageExists(page)) {
-            this.pages[page - 1].deleteText();
+    public void deletePageText(int page) {
+        if (!pageExists(page)) {
+            System.out.println("Page not exists!");
+            return;
         }
+
+        this.pages[page - 1].deleteText();
     }
 
     @Override
     public void viewNotepad() {
         for (Page page : this.pages) {
-            if (page != null) {
-                System.out.println(page.viewPage());
-            }
+            System.out.println(page.viewPage());
         }
     }
 
     private void appendPages() {
         for (int i = 0; i < this.pages.length; i++) {
-            pages[i] = new Page("", "");
+            pages[i] = new Page("Title " + (i + 1), "");
         }
     }
 
@@ -66,7 +72,7 @@ public class SimpleNotepad implements INotepad {
     @Override
     public void printAllPagesWithDigits() {
         for (Page page : this.pages) {
-            if (page.containsDigits()){
+            if (page.containsDigits()) {
                 System.out.println(page.viewPage());
             }
         }

@@ -1,11 +1,11 @@
 package module_two.polymorphism;
 
 public interface INotepad {
-    void addTextToGivenPage(String text, int page);
+    void addTextToPage(String text, int pageNumber);
 
-    void overrideTextToGivenPage(String text, int page);
+    void overridePageText(String text, int pageNumber);
 
-    void deleteTextFromGivenPage(int page);
+    void deletePageText(int pageNumber);
 
     void viewNotepad();
 

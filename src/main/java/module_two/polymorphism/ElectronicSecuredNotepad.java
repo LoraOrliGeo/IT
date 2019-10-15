@@ -20,8 +20,46 @@ public class ElectronicSecuredNotepad extends SecuredNotepad implements IElectro
 
     @Override
     public boolean isStarted() {
-        return false;
+        return isTurnOn;
     }
 
-    //to modify the pages: 1. correct password; 2. the device should be turned on -> override methods?
+    @Override
+    public void addTextToPage(String text, int page) {
+        if (!isTurnOn) {
+            System.out.println("Turn on the notepad first!");
+            return;
+        }
+
+        super.addTextToPage(text, page);
+    }
+
+    @Override
+    public void overridePageText(String text, int page) {
+        if (!isTurnOn) {
+            System.out.println("Turn on the notepad first!");
+            return;
+        }
+
+        super.overridePageText(text, page);
+    }
+
+    @Override
+    public void deletePageText(int page) {
+        if (!isTurnOn) {
+            System.out.println("Turn on the notepad first!");
+            return;
+        }
+
+        super.deletePageText(page);
+    }
+
+    @Override
+    public void viewNotepad() {
+        if (!isTurnOn) {
+            System.out.println("Turn on the notepad first!");
+            return;
+        }
+
+        super.viewNotepad();
+    }
 }

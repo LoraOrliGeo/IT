@@ -12,12 +12,12 @@ public class NotepadDemo {
         INotepad simpleNotepad = new SimpleNotepad(5);
         INotepad securedNotepad = new SecuredNotepad(5, "pAs5w0rD!");
 
-        simpleNotepad.addTextToGivenPage(text, 1);
-        simpleNotepad.addTextToGivenPage("aksdjasdja;osidj", 2);
-        simpleNotepad.overrideTextToGivenPage("It was nonsense...", 2);
+        simpleNotepad.addTextToPage(text, 1);
+        simpleNotepad.addTextToPage("aksdjasdja;osidj", 2);
+        simpleNotepad.overridePageText("It was nonsense...", 2);
 
         System.out.println();
-        securedNotepad.addTextToGivenPage(txt, 2);
+        securedNotepad.addTextToPage(txt, 2);
 
         simpleNotepad.viewNotepad();
         securedNotepad.viewNotepad();

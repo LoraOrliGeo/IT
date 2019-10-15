@@ -8,44 +8,38 @@ public class SecuredNotepad extends SimpleNotepad {
     public SecuredNotepad(int pages, String password) {
         super(pages);
 
-        if (!isStrongPassword(password)) {
-            throw new IllegalArgumentException("Weak password!");
+        if (password == null || !isStrongPassword(password)) {
+            throw new IllegalArgumentException("Weak password! Secured notepad can not be created!");
         }
 
-        setPassword(password);
-    }
-
-    private void setPassword(String password) {
-        if (password != null && !password.isEmpty()) {
-            this.password = password;
-        }
+        this.password = password;
     }
 
     @Override
-    public void addTextToGivenPage(String text, int page) {
-        String pass = this.readPassword();
-        if (this.password.equals(pass)) {
-            super.addTextToGivenPage(text, page);
+    public void addTextToPage(String text, int page) {
+        String password = this.readPassword();
+        if (this.password.equals(password)) {
+            super.addTextToPage(text, page);
         } else {
             printErrorMessage();
         }
     }
 
     @Override
-    public void overrideTextToGivenPage(String text, int page) {
-        String pass = this.readPassword();
-        if (this.password.equals(pass)) {
-            super.overrideTextToGivenPage(text, page);
+    public void overridePageText(String text, int page) {
+        String password = this.readPassword();
+        if (this.password.equals(password)) {
+            super.overridePageText(text, page);
         } else {
             printErrorMessage();
         }
     }
 
     @Override
-    public void deleteTextFromGivenPage(int page) {
-        String pass = this.readPassword();
-        if (this.password.equals(pass)) {
-            super.deleteTextFromGivenPage(page);
+    public void deletePageText(int page) {
+        String password = this.readPassword();
+        if (this.password.equals(password)) {
+            super.deletePageText(page);
         } else {
             printErrorMessage();
         }
@@ -74,9 +68,11 @@ public class SecuredNotepad extends SimpleNotepad {
             char symbol = password.charAt(i);
             if (Character.isUpperCase(symbol)) {
                 hasUppercase = true;
+                continue;
             }
             if (Character.isLowerCase(symbol)) {
                 hasLowercase = true;
+                continue;
             }
             if (Character.isDigit(symbol)) {
                 hasDigit = true;
