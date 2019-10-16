@@ -1,24 +1,11 @@
 package test_two_exercise.real_estates.clients;
 
-public abstract class Client {
-    private String name;
-    private String phone;
+import test_two_exercise.real_estates.agency.Agency;
+
+public abstract class Client extends AgencyPerson {
+    public static final double COMMISSION_PERCENTAGE = 0.03;
 
     public Client(String name, String phone) {
-        setName(name);
-        setPhone(phone);
+        super(name, phone);
     }
-
-    private void setName(String name) {
-        if (name != null && !name.isEmpty()) {
-            this.name = name;
-        }
-    }
-
-    private void setPhone(String phone) {
-        if (phone != null && !phone.isEmpty()) {
-            this.phone = phone;
-        }
-    }
-
 }

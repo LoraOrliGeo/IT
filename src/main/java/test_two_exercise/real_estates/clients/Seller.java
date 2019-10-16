@@ -1,5 +1,6 @@
 package test_two_exercise.real_estates.clients;
 
+import test_two_exercise.real_estates.agency.Agent;
 import test_two_exercise.real_estates.real_estates_types.RealEstate;
 
 public class Seller extends Client {
@@ -8,6 +9,7 @@ public class Seller extends Client {
     public Seller(String name, String phone, RealEstate realEstate) {
         super(name, phone);
         setRealEstate(realEstate);
+        this.realEstate.setOwner(this);
     }
 
     private void setRealEstate(RealEstate realEstate) {
@@ -16,7 +18,7 @@ public class Seller extends Client {
         }
     }
 
-    public void registerRealEstate(){
-
+    public void registerRealEstate() {
+        agency.registerRealEstate(this.realEstate);
     }
 }
