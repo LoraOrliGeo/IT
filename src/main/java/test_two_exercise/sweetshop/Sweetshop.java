@@ -36,35 +36,11 @@ public class Sweetshop {
 
         for (int i = 0; i < 30; i++) {
             int chance = r.nextInt(4);
-            Cake cake = null;
 
             double price = 15.50 + (26.99 - 15.50) * r.nextDouble(); // cake price - between 15.50 and 26.99
             int pieces = r.nextInt(11) + 1; // pieces numbers - between 1 and 10
 
-            switch (chance) {
-                case 0:
-                    // how to get cake's types???
-                    String[] standardTypes = {"biscuit", "eclair", "fruit", "chocolate"};
-                    cake = new StandardCake("StandardCake", "descr", price,
-                            pieces, standardTypes[r.nextInt(standardTypes.length)], r.nextBoolean());
-                    break;
-                case 1:
-                    String[] weddingTypes = {"big", "small", "middle"};
-                    int floors = r.nextInt(5) + 1; // floors - between 1 and 5
-                    cake = new WeddingCake("WeddingCake", "descr", price,
-                            pieces, weddingTypes[r.nextInt(weddingTypes.length)], floors);
-                    break;
-                case 2:
-                    String[] specialTypes = {"anniversary", "company", "commercial"};
-                    cake = new SpecialCake("SpecialCake", "descr", price,
-                            pieces, specialTypes[r.nextInt(specialTypes.length)], "EventName");
-                    break;
-                case 3:
-                    String[] childrenTypes = {"birthday", "christening", "purveyor"};
-                    cake = new ChildrenCake("ChildrenCake", "descr", price,
-                            pieces, childrenTypes[r.nextInt(childrenTypes.length)], "KidName");
-                    break;
-            }
+            Cake cake = generateRandomCake(chance);
 
             CakeStyle cakeStyle = cake.getStyle();
 
@@ -173,5 +149,37 @@ public class Sweetshop {
     public void printClientSpentTheMost() {
         this.clients.sort((e1, e2) -> Double.compare(e2.getSpentMoney(), e1.getSpentMoney()));
         System.out.println("Client spent highest amount of money on cakes: " + this.clients.get(0));
+    }
+
+    public Cake generateRandomCake(int chance) {
+        Cake cake = null;
+        Random r = new Random();
+        double price = 15.50 + (26.99 - 15.50) * r.nextDouble(); // cake price - between 15.50 and 26.99
+        int pieces = r.nextInt(11) + 1; // pieces numbers - between 1 and 10
+        switch (chance) {
+            case 0:
+                // how to get cake's types???
+                String[] standardTypes = {"biscuit", "eclair", "fruit", "chocolate"};
+                cake = new StandardCake("StandardCake", "descr", price,
+                        pieces, standardTypes[r.nextInt(standardTypes.length)], r.nextBoolean());
+                break;
+            case 1:
+                String[] weddingTypes = {"big", "small", "middle"};
+                int floors = r.nextInt(5) + 1; // floors - between 1 and 5
+                cake = new WeddingCake("WeddingCake", "descr", price,
+                        pieces, weddingTypes[r.nextInt(weddingTypes.length)], floors);
+                break;
+            case 2:
+                String[] specialTypes = {"anniversary", "company", "commercial"};
+                cake = new SpecialCake("SpecialCake", "descr", price,
+                        pieces, specialTypes[r.nextInt(specialTypes.length)], "EventName");
+                break;
+            case 3:
+                String[] childrenTypes = {"birthday", "christening", "purveyor"};
+                cake = new ChildrenCake("ChildrenCake", "descr", price,
+                        pieces, childrenTypes[r.nextInt(childrenTypes.length)], "KidName");
+                break;
+        }
+        return cake;
     }
 }
