@@ -12,6 +12,7 @@ public class Page {
 
     private void setTitle(String title) {
         this.title = title != null ? title : "default_title";
+        this.title = title != null ? title : "";
     }
 
     private void setText(String text) {
@@ -21,6 +22,7 @@ public class Page {
     public void addText(String text) {
         if (text != null) {
             this.text = this.text.isEmpty() ? text : this.text.concat(" " + text);
+            this.text = this.text.isEmpty() ? this.text.concat(text) : this.text.concat(" " + text);
         }
     }
 
@@ -30,6 +32,7 @@ public class Page {
 
     public String viewPage() {
         return String.format("%s%n%s", this.title, this.text);
+        return (this.title.isEmpty() ? "-" : this.title) + System.lineSeparator() + text;
     }
 
     // second part of the description

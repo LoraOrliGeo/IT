@@ -18,6 +18,12 @@ public class NotepadDemo {
 
         System.out.println();
         securedNotepad.addTextToPage(txt, 2);
+        simpleNotepad.addTextToGivenPage(text, 1);
+        simpleNotepad.addTextToGivenPage("aksdjasdja;osidj", 2);
+        simpleNotepad.overrideTextToGivenPage("It was nonsense...", 2);
+
+        System.out.println();
+        securedNotepad.addTextToGivenPage(txt, 2);
 
         simpleNotepad.viewNotepad();
         securedNotepad.viewNotepad();

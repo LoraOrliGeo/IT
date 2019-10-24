@@ -62,4 +62,8 @@ public class ElectronicSecuredNotepad extends SecuredNotepad implements IElectro
 
         super.viewNotepad();
     }
+        return false;
+    }
+
+    //to modify the pages: 1. correct password; 2. the device should be turned on -> override methods?
 }

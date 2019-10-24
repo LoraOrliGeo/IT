@@ -20,6 +20,25 @@ public class SecuredNotepad extends SimpleNotepad {
         String password = this.readPassword();
         if (this.password.equals(password)) {
             super.addTextToPage(text, page);
+        }
+        if (!isStrongPassword(password)) {
+            throw new IllegalArgumentException("Weak password!");
+        }
+
+        setPassword(password);
+    }
+
+    private void setPassword(String password) {
+        if (password != null && !password.isEmpty()) {
+            this.password = password;
+        }
+    }
+
+    @Override
+    public void addTextToGivenPage(String text, int page) {
+        String pass = this.readPassword();
+        if (this.password.equals(pass)) {
+            super.addTextToGivenPage(text, page);
         } else {
             printErrorMessage();
         }
@@ -30,6 +49,13 @@ public class SecuredNotepad extends SimpleNotepad {
         String password = this.readPassword();
         if (this.password.equals(password)) {
             super.overridePageText(text, page);
+        }
+    }
+
+    public void overrideTextToGivenPage(String text, int page) {
+        String pass = this.readPassword();
+        if (this.password.equals(pass)) {
+            super.overrideTextToGivenPage(text, page);
         } else {
             printErrorMessage();
         }
@@ -40,6 +66,10 @@ public class SecuredNotepad extends SimpleNotepad {
         String password = this.readPassword();
         if (this.password.equals(password)) {
             super.deletePageText(page);
+    public void deleteTextFromGivenPage(int page) {
+        String pass = this.readPassword();
+        if (this.password.equals(pass)) {
+            super.deleteTextFromGivenPage(page);
         } else {
             printErrorMessage();
         }
@@ -73,6 +103,9 @@ public class SecuredNotepad extends SimpleNotepad {
             if (Character.isLowerCase(symbol)) {
                 hasLowercase = true;
                 continue;
+            }
+            if (Character.isLowerCase(symbol)) {
+                hasLowercase = true;
             }
             if (Character.isDigit(symbol)) {
                 hasDigit = true;
