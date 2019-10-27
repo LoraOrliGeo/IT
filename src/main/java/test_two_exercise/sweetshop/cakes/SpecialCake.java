@@ -18,11 +18,6 @@ public class SpecialCake extends Cake {
     }
 
     @Override
-    public List<String> getCakeTypes() {
-        return new ArrayList<>(Arrays.asList("anniversary", "company", "commercial"));
-    }
-
-    @Override
     public int compareTo(Cake o) {
         return Double.compare(this.getPrice(), o.getPrice());
     }

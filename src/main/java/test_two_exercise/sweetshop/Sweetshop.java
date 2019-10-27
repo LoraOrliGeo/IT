@@ -4,8 +4,6 @@ import test_two_exercise.sweetshop.cakes.*;
 import test_two_exercise.sweetshop.clients.Client;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Sweetshop {
     private static final int NUMBER_OF_DELIVERS = 5;
@@ -23,22 +21,18 @@ public class Sweetshop {
         this.name = name;
         this.address = address;
         this.number = number;
-        this.providers = new LinkedHashSet<>();
-        addProviders();
-        this.catalogue = new HashMap<>();
-        addCakes();
         this.soldCakes = new HashMap<>();
         this.clients = new ArrayList<>();
+        addProviders();
+        addCakes();
     }
 
     private void addCakes() {
+        this.catalogue = new HashMap<>();
         Random r = new Random();
 
         for (int i = 0; i < 30; i++) {
             int chance = r.nextInt(4);
-
-            double price = 15.50 + (26.99 - 15.50) * r.nextDouble(); // cake price - between 15.50 and 26.99
-            int pieces = r.nextInt(11) + 1; // pieces numbers - between 1 and 10
 
             Cake cake = generateRandomCake(chance);
 
@@ -53,6 +47,8 @@ public class Sweetshop {
     }
 
     private void addProviders() {
+        this.providers = new LinkedHashSet<>();
+
         for (int i = 0; i < NUMBER_OF_DELIVERS; i++) {
             Provider provider = new Provider("Provider" + (i + 1), "555-66-4558");
             this.providers.add(provider);
@@ -141,9 +137,9 @@ public class Sweetshop {
 
     public void printProviderMostOrders() {
         List<Provider> providers = new ArrayList<>(this.providers);
-        providers.sort((e1, e2) -> Integer.compare(e2.getCompleteOrders(), e1.getCompleteOrders()));
+        providers.sort((e1, e2) -> Integer.compare(e2.getCompletedOrdersCount(), e1.getCompletedOrdersCount()));
         System.out.println("Provider with highest number of orders: " +
-                providers.get(0) + " - orders: " + providers.get(0).getCompleteOrders());
+                providers.get(0) + " - orders: " + providers.get(0).getCompletedOrdersCount());
     }
 
     public void printClientSpentTheMost() {
@@ -152,34 +148,30 @@ public class Sweetshop {
     }
 
     public Cake generateRandomCake(int chance) {
-        Cake cake = null;
         Random r = new Random();
         double price = 15.50 + (26.99 - 15.50) * r.nextDouble(); // cake price - between 15.50 and 26.99
         int pieces = r.nextInt(11) + 1; // pieces numbers - between 1 and 10
+
+        List<String> types;
+
         switch (chance) {
             case 0:
-                // how to get cake's types???
-                String[] standardTypes = {"biscuit", "eclair", "fruit", "chocolate"};
-                cake = new StandardCake("StandardCake", "descr", price,
-                        pieces, standardTypes[r.nextInt(standardTypes.length)], r.nextBoolean());
-                break;
+                types = CakeStyle.STANDARD.getTypes();
+                return new StandardCake("StandardCake", "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), r.nextBoolean());
             case 1:
-                String[] weddingTypes = {"big", "small", "middle"};
                 int floors = r.nextInt(5) + 1; // floors - between 1 and 5
-                cake = new WeddingCake("WeddingCake", "descr", price,
-                        pieces, weddingTypes[r.nextInt(weddingTypes.length)], floors);
-                break;
+                types = CakeStyle.WEDDING.getTypes();
+                return new WeddingCake("WeddingCake", "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), floors);
             case 2:
-                String[] specialTypes = {"anniversary", "company", "commercial"};
-                cake = new SpecialCake("SpecialCake", "descr", price,
-                        pieces, specialTypes[r.nextInt(specialTypes.length)], "EventName");
-                break;
-            case 3:
-                String[] childrenTypes = {"birthday", "christening", "purveyor"};
-                cake = new ChildrenCake("ChildrenCake", "descr", price,
-                        pieces, childrenTypes[r.nextInt(childrenTypes.length)], "KidName");
-                break;
+                types = CakeStyle.SPECIAL.getTypes();
+                return new SpecialCake("SpecialCake", "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), "EventName");
+            default:
+                types = CakeStyle.CHILDREN.getTypes();
+                return new ChildrenCake("ChildrenCake", "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), "KidName");
         }
-        return cake;
     }
 }

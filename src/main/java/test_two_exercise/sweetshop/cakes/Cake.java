@@ -1,8 +1,9 @@
 package test_two_exercise.sweetshop.cakes;
 
+import java.util.Arrays;
 import java.util.List;
 
-public abstract class Cake implements Comparable<Cake>{
+public abstract class Cake implements Comparable<Cake> {
     private String name;
     private String description;
     private double price;
@@ -28,7 +29,9 @@ public abstract class Cake implements Comparable<Cake>{
         }
     }
 
-    public abstract List<String> getCakeTypes();
+    public List<String> getCakeTypes() {
+        return style.getTypes();
+    }
 
     public String getName() {
         return this.name;

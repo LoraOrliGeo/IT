@@ -18,11 +18,6 @@ public class ChildrenCake extends Cake {
     }
 
     @Override
-    public List<String> getCakeTypes() {
-        return new ArrayList<>(Arrays.asList("birthday", "christening", "purveyor"));
-    }
-
-    @Override
     public int compareTo(Cake o) {
         return Integer.compare(this.getPieces(), o.getPieces());
     }

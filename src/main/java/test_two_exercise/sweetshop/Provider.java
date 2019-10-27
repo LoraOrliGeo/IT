@@ -9,7 +9,7 @@ import java.util.Set;
 public class Provider extends Person implements Comparable<Provider> {
     private Set<Order> orders;
     private double tip;
-    private int completeOrders;
+    private int completedOrdersCount;
 
     public Provider(String name, String number) {
         super(name, number);
@@ -25,15 +25,15 @@ public class Provider extends Person implements Comparable<Provider> {
         sweetshop.receiveMoney(order.getPrice());
         this.tip += order.getPrice() * tip;
         this.orders.remove(order);
-        this.completeOrders++;
+        this.completedOrdersCount++;
     }
 
     public double getTip() {
         return this.tip;
     }
 
-    public int getCompleteOrders() {
-        return this.completeOrders;
+    public int getCompletedOrdersCount() {
+        return this.completedOrdersCount;
     }
 
     @Override
@@ -43,6 +43,6 @@ public class Provider extends Person implements Comparable<Provider> {
 
     @Override
     public int compareTo(Provider o) {
-        return o.getCompleteOrders() - this.getCompleteOrders();
+        return o.getCompletedOrdersCount() - this.getCompletedOrdersCount();
     }
 }
