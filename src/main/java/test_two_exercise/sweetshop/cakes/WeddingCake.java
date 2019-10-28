@@ -1,9 +1,5 @@
 package test_two_exercise.sweetshop.cakes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class WeddingCake extends Cake {
     private int floors;
 
@@ -19,6 +15,6 @@ public class WeddingCake extends Cake {
 
     @Override
     public int compareTo(Cake o) {
-        return Integer.compare(this.getPieces(), o.getPieces());
+        return o.getPieces() - this.getPieces();
     }
 }

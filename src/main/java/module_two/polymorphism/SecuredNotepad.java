@@ -8,19 +8,6 @@ public class SecuredNotepad extends SimpleNotepad {
     public SecuredNotepad(int pages, String password) {
         super(pages);
 
-        if (password == null || !isStrongPassword(password)) {
-            throw new IllegalArgumentException("Weak password! Secured notepad can not be created!");
-        }
-
-        this.password = password;
-    }
-
-    @Override
-    public void addTextToPage(String text, int page) {
-        String password = this.readPassword();
-        if (this.password.equals(password)) {
-            super.addTextToPage(text, page);
-        }
         if (!isStrongPassword(password)) {
             throw new IllegalArgumentException("Weak password!");
         }
@@ -45,13 +32,6 @@ public class SecuredNotepad extends SimpleNotepad {
     }
 
     @Override
-    public void overridePageText(String text, int page) {
-        String password = this.readPassword();
-        if (this.password.equals(password)) {
-            super.overridePageText(text, page);
-        }
-    }
-
     public void overrideTextToGivenPage(String text, int page) {
         String pass = this.readPassword();
         if (this.password.equals(pass)) {
@@ -62,10 +42,6 @@ public class SecuredNotepad extends SimpleNotepad {
     }
 
     @Override
-    public void deletePageText(int page) {
-        String password = this.readPassword();
-        if (this.password.equals(password)) {
-            super.deletePageText(page);
     public void deleteTextFromGivenPage(int page) {
         String pass = this.readPassword();
         if (this.password.equals(pass)) {
@@ -98,11 +74,6 @@ public class SecuredNotepad extends SimpleNotepad {
             char symbol = password.charAt(i);
             if (Character.isUpperCase(symbol)) {
                 hasUppercase = true;
-                continue;
-            }
-            if (Character.isLowerCase(symbol)) {
-                hasLowercase = true;
-                continue;
             }
             if (Character.isLowerCase(symbol)) {
                 hasLowercase = true;

@@ -36,10 +36,7 @@ public abstract class Client extends Person {
         Random r = new Random();
 
         for (int i = 0; i < getRandomNumberOfCakes(); i++) {
-            int chance = r.nextInt(4);
-
-            Cake cake = Client.sweetshop.generateRandomCake(chance);
-
+            Cake cake = Client.sweetshop.chosenCakeFromCatalogue();
             cakes.add(cake);
         }
         return cakes;

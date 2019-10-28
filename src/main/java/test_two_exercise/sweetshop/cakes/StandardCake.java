@@ -1,9 +1,5 @@
 package test_two_exercise.sweetshop.cakes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class StandardCake extends Cake {
     boolean isSyrupy;
 
@@ -19,6 +15,6 @@ public class StandardCake extends Cake {
 
     @Override
     public int compareTo(Cake o) {
-        return Double.compare(this.getPrice(), o.getPrice());
+        return Double.compare(o.getPrice(), this.getPrice());
     }
 }

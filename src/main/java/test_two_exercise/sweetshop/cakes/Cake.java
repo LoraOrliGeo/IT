@@ -1,9 +1,9 @@
 package test_two_exercise.sweetshop.cakes;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-public abstract class Cake implements Comparable<Cake> {
+public abstract class Cake implements Comparable<Cake>{
     private String name;
     private String description;
     private double price;
@@ -60,5 +60,15 @@ public abstract class Cake implements Comparable<Cake> {
     }
 
     @Override
-    public abstract int compareTo(Cake o);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cake cake = (Cake) o;
+        return name.equals(cake.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }
