@@ -1,7 +1,5 @@
 package test_two_exercise.sweetshop.clients;
 
-import test_two_exercise.sweetshop.Order;
-import test_two_exercise.sweetshop.Provider;
 import test_two_exercise.sweetshop.cakes.Cake;
 
 import java.util.ArrayList;
@@ -31,8 +29,11 @@ public class PrivateClient extends Client {
     public void makeOrder() {
         // cakes (1-3) of different style and type
         List<Cake> cakes = chooseCakes();
-        double percentDiscount = this.vouchers.stream().mapToInt(Integer::intValue).sum();
-        sweetshop.registerOrder(this, cakes, percentDiscount);
+        sweetshop.registerOrder(this, cakes);
+    }
+
+    public List<Integer> getVouchers() {
+        return this.vouchers;
     }
 
     @Override

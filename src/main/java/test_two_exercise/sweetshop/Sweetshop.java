@@ -2,6 +2,8 @@ package test_two_exercise.sweetshop;
 
 import test_two_exercise.sweetshop.cakes.*;
 import test_two_exercise.sweetshop.clients.Client;
+import test_two_exercise.sweetshop.clients.CorporateClient;
+import test_two_exercise.sweetshop.clients.PrivateClient;
 
 import java.util.*;
 
@@ -61,18 +63,34 @@ public class Sweetshop {
         return this.money;
     }
 
-    public void registerOrder(Client client, List<Cake> cakes, double percentDiscount) {
+    public void registerOrder(Client client, List<Cake> cakes) {
         List<Cake> availableCakes = extractAvailableCakes(client, cakes);
         this.clients.add(client);
         Order order = new Order(client, availableCakes);
         Provider provider = getRandomProvider();
-        double discount = order.getPrice() * percentDiscount;
-        order.calculatePrice(discount);
+
+        double orderPrice = order.calculatePrice();
 
         provider.addOrder(order);
-
         provider.executeOrder(order, client.getPercentTip());
-        client.spendMoney(order.getPrice());
+
+        double discount;
+
+        if (client instanceof CorporateClient) {
+            discount = ((CorporateClient) client).getDiscount() * orderPrice; // percent discount is applied
+            orderPrice -= discount;
+        } else if (client instanceof PrivateClient) {
+            List<Integer> vouchers = ((PrivateClient) client).getVouchers();
+            while (vouchers.size() >= 1) {
+                if (orderPrice - vouchers.get(0) < 0) {
+                    break;
+                }
+                orderPrice -= vouchers.get(0);
+                vouchers.remove(0);
+            }
+        }
+
+        client.spendMoney(orderPrice);
         removeOrderedCakes(availableCakes);
     }
 
@@ -118,18 +136,14 @@ public class Sweetshop {
     }
 
     public void printClientSpentTheMost() {
-        this.clients.sort((e1, e2) -> Double.compare(e2.getSpentMoney(), e1.getSpentMoney()));
-        System.out.println("========== Client spent Highest Amount of Money on Cakes ==========\n"
-                + this.clients.get(0));
+        if (this.clients.isEmpty()) {
+            System.out.println("There are not any clients!");
+        } else {
+            this.clients.sort((e1, e2) -> Double.compare(e2.getSpentMoney(), e1.getSpentMoney()));
+            System.out.println("========== Client spent Highest Amount of Money on Cakes ==========\n"
+                    + this.clients.get(0));
+        }
     }
-
-//    public int getAvailableCakesCount() {
-//        int size = 0;
-//        for (Map.Entry<CakeStyle, Set<Cake>> entry : this.catalogue.entrySet()) {
-//            size += entry.getValue().size();
-//        }
-//        return size;
-//    }
 
     private Cake generateRandomCake(String cakeName, int chance) {
         Random r = new Random();

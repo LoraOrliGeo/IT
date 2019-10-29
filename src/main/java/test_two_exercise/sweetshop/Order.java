@@ -23,15 +23,14 @@ public class Order {
         this.dateTimeDelivery = dateTimeDelivery;
     }
 
-    public void calculatePrice(double discount) {
-        double price = 0;
+    public double calculatePrice() {
         for (Cake cake : this.cakes) {
-            price += cake.getPrice();
+            this.price += cake.getPrice();
         }
-        this.price = price - discount;
+        return this.price;
     }
 
     public double getPrice() {
-        return this.price;
+        return price;
     }
 }

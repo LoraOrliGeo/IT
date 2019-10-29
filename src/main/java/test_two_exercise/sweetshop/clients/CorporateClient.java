@@ -17,9 +17,12 @@ public class CorporateClient extends Client {
     public void makeOrder() {
         // cakes (3-5) of different style and type
         List<Cake> cakes = this.chooseCakes();
+        sweetshop.registerOrder(this, cakes);
+    }
+
+    public double getDiscount() {
         Random r = new Random();
-        double percentDiscount = (r.nextInt(11) + 5) * 1.0 / 100;
-        sweetshop.registerOrder(this, cakes, percentDiscount);
+        return (r.nextInt(11) + 5) * 1.0 / 100;
     }
 
     protected int getRandomNumberOfCakes() {
