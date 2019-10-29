@@ -9,7 +9,7 @@ import java.util.Random;
 public class PrivateClient extends Client {
     private static final double PERCENTAGE_TIP = 0.02;
 
-    private List<Integer> vouchers;
+    private List<Double> vouchers;
 
     public PrivateClient(String name, String number, String address) {
         super(name, number, address);
@@ -21,7 +21,7 @@ public class PrivateClient extends Client {
         Random r = new Random();
         int count = r.nextInt(4) + 1;
         for (int i = 0; i < count; i++) {
-            this.vouchers.add(r.nextInt(21) + 10);
+            this.vouchers.add(10 + 21 * r.nextDouble());
         }
     }
 
@@ -32,7 +32,7 @@ public class PrivateClient extends Client {
         sweetshop.registerOrder(this, cakes);
     }
 
-    public List<Integer> getVouchers() {
+    public List<Double> getVouchers() {
         return this.vouchers;
     }
 

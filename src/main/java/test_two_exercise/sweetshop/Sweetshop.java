@@ -126,13 +126,17 @@ public class Sweetshop {
             discount = ((CorporateClient) client).getDiscount() * orderPrice; // percent discount is applied
             orderPrice -= discount;
         } else if (client instanceof PrivateClient) {
-            List<Integer> vouchers = ((PrivateClient) client).getVouchers();
+            List<Double> vouchers = ((PrivateClient) client).getVouchers();
             while (vouchers.size() >= 1) {
-                if (orderPrice - vouchers.get(0) < 0) {
-                    break;
+                double voucher = vouchers.get(0);
+                double diff = orderPrice - voucher;
+                if (diff >= 0) {
+                    orderPrice -= voucher;
+                    vouchers.remove(0);
+                } else {
+                    orderPrice -= diff;
+                    vouchers.set(0, voucher - diff);
                 }
-                orderPrice -= vouchers.get(0);
-                vouchers.remove(0);
             }
         }
 
