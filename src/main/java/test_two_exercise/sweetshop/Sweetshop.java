@@ -32,6 +32,38 @@ public class Sweetshop {
         this.availableCakes.putAll(this.catalogue);
     }
 
+    private void addProviders() {
+        this.providers = new LinkedHashSet<>();
+
+        for (int i = 0; i < NUMBER_OF_DELIVERS; i++) {
+            Provider provider = new Provider("Provider" + (i + 1), "555-66-455" + i);
+            this.providers.add(provider);
+        }
+    }
+
+    private Map<CakeStyle, Set<Cake>> createCatalogue() {
+        Map<CakeStyle, Set<Cake>> catalogue = initCatalogue();
+        Random r = new Random();
+
+        for (int i = 0; i < 30; i++) {
+            int chance = r.nextInt(4);
+            String cakeName = "Cake" + (i + 1);
+            Cake cake = generateRandomCake(cakeName, chance);
+            catalogue.get(cake.getCakeStyle()).add(cake);
+        }
+
+        return catalogue;
+    }
+
+    private Map<CakeStyle, Set<Cake>> initCatalogue() {
+        Map<CakeStyle, Set<Cake>> catalogue = new HashMap<>();
+        catalogue.put(CakeStyle.WEDDING, new HashSet<>());
+        catalogue.put(CakeStyle.SPECIAL, new HashSet<>());
+        catalogue.put(CakeStyle.STANDARD, new HashSet<>());
+        catalogue.put(CakeStyle.CHILDREN, new HashSet<>());
+        return catalogue;
+    }
+
     public Map<CakeStyle, Set<Cake>> getCatalogue() {
         return Collections.unmodifiableMap(this.catalogue);
     }
@@ -41,26 +73,40 @@ public class Sweetshop {
         return providers.get(new Random().nextInt(this.providers.size()));
     }
 
-    public List<Cake> extractAvailableCakes(Client client, List<Cake> cakes) {
-        List<Cake> availableCakes = new ArrayList<>();
-
-        for (Cake cake : cakes) {
-            if (checkCakeAvailability(cake)) {
-                System.out.println(String.format("%s successfully ordered a cake %s - %s %s",
-                        client.getName(), cake.getName(), cake.getStyle(), cake.getType()));
-                availableCakes.add(cake);
-            }
-        }
-
-        return availableCakes;
-    }
-
     public void receiveMoney(double money) {
         this.money += money;
     }
 
     public double getMoney() {
         return this.money;
+    }
+
+    private Cake generateRandomCake(String cakeName, int chance) {
+        Random r = new Random();
+        double price = 15.50 + (26.99 - 15.50) * r.nextDouble(); // cake price - between 15.50 and 26.99
+        int pieces = r.nextInt(11) + 1; // pieces numbers - between 1 and 10
+
+        List<String> types;
+
+        switch (chance) {
+            case 0:
+                types = CakeStyle.STANDARD.getTypes();
+                return new StandardCake(cakeName, "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), r.nextBoolean());
+            case 1:
+                int floors = r.nextInt(5) + 1; // floors - between 1 and 5
+                types = CakeStyle.WEDDING.getTypes();
+                return new WeddingCake(cakeName, "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), floors);
+            case 2:
+                types = CakeStyle.SPECIAL.getTypes();
+                return new SpecialCake(cakeName, "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), "EventName");
+            default:
+                types = CakeStyle.CHILDREN.getTypes();
+                return new ChildrenCake(cakeName, "descr", price,
+                        pieces, types.get(r.nextInt(types.size())), "KidName");
+        }
     }
 
     public void registerOrder(Client client, List<Cake> cakes) {
@@ -92,6 +138,39 @@ public class Sweetshop {
 
         client.spendMoney(orderPrice);
         removeOrderedCakes(availableCakes);
+    }
+
+    public List<Cake> extractAvailableCakes(Client client, List<Cake> cakes) {
+        List<Cake> availableCakes = new ArrayList<>();
+
+        for (Cake cake : cakes) {
+            if (checkCakeAvailability(cake)) {
+                System.out.println(String.format("%s successfully ordered a cake %s - %s %s",
+                        client.getName(), cake.getName(), cake.getStyle(), cake.getType()));
+                availableCakes.add(cake);
+            }
+        }
+
+        return availableCakes;
+    }
+
+    private boolean checkCakeAvailability(Cake cake) {
+        if (cake != null) {
+            CakeStyle cakeStyle = cake.getStyle();
+            if (this.availableCakes.containsKey(cakeStyle) && this.availableCakes.get(cakeStyle).contains(cake)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void removeOrderedCakes(List<Cake> orderedCakes) {
+        for (Cake orderedCake : orderedCakes) {
+            CakeStyle cakeStyle = orderedCake.getStyle();
+            this.soldCakes.putIfAbsent(cakeStyle, 0);
+            this.soldCakes.put(cakeStyle, this.soldCakes.get(cakeStyle) + 1);
+            this.availableCakes.get(cakeStyle).remove(orderedCake);
+        }
     }
 
     public void printSweetshopIncome() {
@@ -142,85 +221,6 @@ public class Sweetshop {
             this.clients.sort((e1, e2) -> Double.compare(e2.getSpentMoney(), e1.getSpentMoney()));
             System.out.println("========== Client spent Highest Amount of Money on Cakes ==========\n"
                     + this.clients.get(0));
-        }
-    }
-
-    private Cake generateRandomCake(String cakeName, int chance) {
-        Random r = new Random();
-        double price = 15.50 + (26.99 - 15.50) * r.nextDouble(); // cake price - between 15.50 and 26.99
-        int pieces = r.nextInt(11) + 1; // pieces numbers - between 1 and 10
-
-        List<String> types;
-
-        switch (chance) {
-            case 0:
-                types = CakeStyle.STANDARD.getTypes();
-                return new StandardCake(cakeName, "descr", price,
-                        pieces, types.get(r.nextInt(types.size())), r.nextBoolean());
-            case 1:
-                int floors = r.nextInt(5) + 1; // floors - between 1 and 5
-                types = CakeStyle.WEDDING.getTypes();
-                return new WeddingCake(cakeName, "descr", price,
-                        pieces, types.get(r.nextInt(types.size())), floors);
-            case 2:
-                types = CakeStyle.SPECIAL.getTypes();
-                return new SpecialCake(cakeName, "descr", price,
-                        pieces, types.get(r.nextInt(types.size())), "EventName");
-            default:
-                types = CakeStyle.CHILDREN.getTypes();
-                return new ChildrenCake(cakeName, "descr", price,
-                        pieces, types.get(r.nextInt(types.size())), "KidName");
-        }
-    }
-
-    private Map<CakeStyle, Set<Cake>> createCatalogue() {
-        Map<CakeStyle, Set<Cake>> catalogue = initCatalogue();
-        Random r = new Random();
-
-        for (int i = 0; i < 30; i++) {
-            int chance = r.nextInt(4);
-            String cakeName = "Cake" + (i + 1);
-            Cake cake = generateRandomCake(cakeName, chance);
-            catalogue.get(cake.getCakeStyle()).add(cake);
-        }
-
-        return catalogue;
-    }
-
-    private Map<CakeStyle, Set<Cake>> initCatalogue() {
-        Map<CakeStyle, Set<Cake>> catalogue = new HashMap<>();
-        catalogue.put(CakeStyle.WEDDING, new HashSet<>());
-        catalogue.put(CakeStyle.SPECIAL, new HashSet<>());
-        catalogue.put(CakeStyle.STANDARD, new HashSet<>());
-        catalogue.put(CakeStyle.CHILDREN, new HashSet<>());
-        return catalogue;
-    }
-
-    private boolean checkCakeAvailability(Cake cake) {
-        if (cake != null) {
-            CakeStyle cakeStyle = cake.getStyle();
-            if (this.availableCakes.containsKey(cakeStyle) && this.availableCakes.get(cakeStyle).contains(cake)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void addProviders() {
-        this.providers = new LinkedHashSet<>();
-
-        for (int i = 0; i < NUMBER_OF_DELIVERS; i++) {
-            Provider provider = new Provider("Provider" + (i + 1), "555-66-455" + i);
-            this.providers.add(provider);
-        }
-    }
-
-    private void removeOrderedCakes(List<Cake> orderedCakes) {
-        for (Cake orderedCake : orderedCakes) {
-            CakeStyle cakeStyle = orderedCake.getStyle();
-            this.soldCakes.putIfAbsent(cakeStyle, 0);
-            this.soldCakes.put(cakeStyle, this.soldCakes.get(cakeStyle) + 1);
-            this.availableCakes.get(cakeStyle).remove(orderedCake);
         }
     }
 

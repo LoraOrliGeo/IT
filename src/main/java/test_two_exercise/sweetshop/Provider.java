@@ -16,6 +16,14 @@ public class Provider extends Person implements Comparable<Provider> {
         this.orders = new HashSet<>();
     }
 
+    public double getTip() {
+        return this.tip;
+    }
+
+    public int getCompletedOrdersCount() {
+        return this.completedOrdersCount;
+    }
+
     public void addOrder(Order order) {
         this.orders.add(order);
     }
@@ -28,21 +36,13 @@ public class Provider extends Person implements Comparable<Provider> {
         this.completedOrdersCount++;
     }
 
-    public double getTip() {
-        return this.tip;
-    }
-
-    public int getCompletedOrdersCount() {
-        return this.completedOrdersCount;
+    @Override
+    public int compareTo(Provider o) {
+        return o.getCompletedOrdersCount() - this.getCompletedOrdersCount();
     }
 
     @Override
     public String toString() {
         return String.format("%s - Tip: %.2f", this.getName(), this.getTip());
-    }
-
-    @Override
-    public int compareTo(Provider o) {
-        return o.getCompletedOrdersCount() - this.getCompletedOrdersCount();
     }
 }
