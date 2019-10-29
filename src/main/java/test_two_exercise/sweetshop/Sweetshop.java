@@ -30,6 +30,10 @@ public class Sweetshop {
         this.availableCakes.putAll(this.catalogue);
     }
 
+    public Map<CakeStyle, Set<Cake>> getCatalogue() {
+        return Collections.unmodifiableMap(this.catalogue);
+    }
+
     public Provider getRandomProvider() {
         List<Provider> providers = new ArrayList<>(this.providers);
         return providers.get(new Random().nextInt(this.providers.size()));
@@ -127,21 +131,6 @@ public class Sweetshop {
 //        return size;
 //    }
 
-    public Cake chosenCakeFromCatalogue() {
-        Random r = new Random();
-        CakeStyle cakeStyle = CakeStyle.values()[r.nextInt(CakeStyle.values().length)];
-        String type = cakeStyle.getTypes().get(r.nextInt(cakeStyle.getTypes().size()));
-
-        for (Set<Cake> cakes : this.catalogue.values()) {
-            for (Cake c : cakes) {
-                if (c.getStyle().equals(cakeStyle) && c.getType().equals(type)) {
-                    return c;
-                }
-            }
-        }
-        return null;
-    }
-
     private Cake generateRandomCake(String cakeName, int chance) {
         Random r = new Random();
         double price = 15.50 + (26.99 - 15.50) * r.nextDouble(); // cake price - between 15.50 and 26.99
@@ -207,17 +196,17 @@ public class Sweetshop {
         this.providers = new LinkedHashSet<>();
 
         for (int i = 0; i < NUMBER_OF_DELIVERS; i++) {
-            Provider provider = new Provider("Provider" + (i + 1), "555-66-4558");
+            Provider provider = new Provider("Provider" + (i + 1), "555-66-455" + i);
             this.providers.add(provider);
         }
     }
 
-    private void removeOrderedCakes(List<Cake> availableCakes) {
-        for (Cake availableCake : availableCakes) {
-            CakeStyle cakeStyle = availableCake.getStyle();
+    private void removeOrderedCakes(List<Cake> orderedCakes) {
+        for (Cake orderedCake : orderedCakes) {
+            CakeStyle cakeStyle = orderedCake.getStyle();
             this.soldCakes.putIfAbsent(cakeStyle, 0);
             this.soldCakes.put(cakeStyle, this.soldCakes.get(cakeStyle) + 1);
-            this.availableCakes.get(cakeStyle).remove(availableCake);
+            this.availableCakes.get(cakeStyle).remove(orderedCake);
         }
     }
 

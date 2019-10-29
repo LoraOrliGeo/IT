@@ -5,6 +5,7 @@ import test_two_exercise.sweetshop.cakes.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public abstract class Client extends Person {
     private String address;
@@ -36,7 +37,18 @@ public abstract class Client extends Person {
         Random r = new Random();
 
         for (int i = 0; i < getRandomNumberOfCakes(); i++) {
-            Cake cake = Client.sweetshop.chosenCakeFromCatalogue();
+            Cake cake = null;
+            CakeStyle cakeStyle = CakeStyle.values()[r.nextInt(CakeStyle.values().length)];
+            String type = cakeStyle.getTypes().get(r.nextInt(cakeStyle.getTypes().size()));
+
+            for (Set<Cake> cakesInCatalogue : sweetshop.getCatalogue().values()) {
+                for (Cake c : cakesInCatalogue) {
+                    if (c.getStyle().equals(cakeStyle) && c.getType().equals(type)) {
+                        cake = c;
+                    }
+                }
+            }
+
             cakes.add(cake);
         }
         return cakes;
