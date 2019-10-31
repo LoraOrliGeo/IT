@@ -14,7 +14,7 @@ import java.util.Random;
 public class Demo {
     public static void main(String[] args) {
 
-        Club club = new Club("IT Archer", "Alexi Rilec", "Krasi Stoev", 40);
+        Club club = new Club("IT Archer", "Alexi Rilec", "Krasi Stoev");
         Random r = new Random();
 
         String[] genders = {"male", "female"};

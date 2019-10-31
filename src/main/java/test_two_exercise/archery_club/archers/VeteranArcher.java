@@ -34,7 +34,7 @@ public class VeteranArcher extends Archer {
     }
 
     @Override
-    public String getArcherType() {
-        return "Veteran";
+    public ArcherType getArcherType() {
+        return ArcherType.VETERAN;
     }
 }

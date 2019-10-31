@@ -133,7 +133,7 @@ public abstract class Archer {
 
     protected abstract int getMinExperience();
 
-    public abstract String getArcherType();
+    public abstract ArcherType getArcherType();
 
     public void printArcherInfo() {
         System.out.println(String.format("Name: %s%nAge: %d%nExperience: %d",

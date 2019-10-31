@@ -36,7 +36,7 @@ public class JuniorArcher extends Archer {
     }
 
     @Override
-    public String getArcherType() {
-        return "Junior";
+    public ArcherType getArcherType() {
+        return ArcherType.JUNIOR;
     }
 }

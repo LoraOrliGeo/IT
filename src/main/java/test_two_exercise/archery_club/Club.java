@@ -1,6 +1,7 @@
 package test_two_exercise.archery_club;
 
 import test_two_exercise.archery_club.archers.Archer;
+import test_two_exercise.archery_club.archers.ArcherType;
 
 import java.util.*;
 
@@ -8,18 +9,15 @@ public class Club {
     private String name;
     private String address;
     private String trainer;
-    private Archer[] archers;
-    private int freePlaces;
-    private int juniorCount;
-    private int seniorCount;
-    private int veteranCount;
+    private List<Archer> archers;
+    private Map<ArcherType, Map<Archer, Integer>> results;
 
-    public Club(String name, String address, String trainer, int places) {
+    public Club(String name, String address, String trainer) {
         setName(name);
         setAddress(address);
         setTrainer(trainer);
-        this.archers = new Archer[places];
-        this.freePlaces = places;
+        this.archers = new ArrayList<>();
+        this.results = new HashMap<>();
     }
 
     private void setName(String name) {
@@ -41,11 +39,8 @@ public class Club {
     }
 
     public void addArcher(Archer archer) {
-        if (archer != null && freePlaces > 0 && this.archers != null) {
-            this.archers[archers.length - freePlaces] = archer;
-            this.freePlaces--;
-        } else {
-            System.out.println("There are not free spaces in the club!");
+        if (archer != null) {
+            this.archers.add(archer);
         }
     }
 
@@ -58,16 +53,29 @@ public class Club {
     private void printContestants() {
         // sort archers by name and increase the tournaments of each archer by 1
         System.out.println("ARCHERS IN THE COMPETITION:");
-        sortArchersByName();
-        for (int i = 0; i < this.archers.length - this.freePlaces; i++) {
-            archers[i].printArcherInfo();
-            archers[i].increaseTournamentsByOne();
+        TreeSet<Archer> archers = new TreeSet<>((a1, a2) -> {
+            if (a1.getName().equalsIgnoreCase(a2.getName())) {
+                return 1;
+            }
+            return a1.getName().compareTo(a2.getName());
+        });
+        archers.addAll(this.archers);
+
+        for (Archer archer : archers) {
+            archer.printArcherInfo();
+            archer.increaseTournamentsByOne();
         }
     }
 
     private void shootArrows() {
-        for (int i = 0; i < archers.length - freePlaces; i++) {
-            archers[i].shoot();
+        for (Archer archer : this.archers) {
+            archer.shoot();
+
+            if (!results.containsKey(archer.getArcherType())) {
+                results.put(archer.getArcherType(), new HashMap<>());
+            }
+
+            results.get(archer.getArcherType()).put(archer, archer.getPoints());
         }
     }
 
@@ -80,100 +88,73 @@ public class Club {
         printMenWithCarbonBowsByYearsExperience();
     }
 
-    private void sortArchersByName() {
-        //Bubble sort
-        for (int i = 0; i < archers.length - freePlaces - 1; i++) {
-            for (int j = 0; j < archers.length - freePlaces - i - 1; j++) {
-                if (archers[j].getName().compareTo(archers[j + 1].getName()) > 0) {
-                    Archer temp = archers[i];
-                    archers[i] = archers[j + 1];
-                    archers[j + 1] = temp;
-                }
-            }
-        }
-    }
-
     private void printCategoryWinner() {
-        String juniorWinnerName = null;
-        String seniorWinnerName = null;
-        String veteranWinnerName = null;
-
-        int juniorMaxPoints = 0;
-        int seniorMaxPoints = 0;
-        int veteranMaxPoints = 0;
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~ WINNER BY CATEGORY ~~~~~~~~~~~~~~~~~~~~~~");
+        Archer juniorWinner = null;
+        Archer seniorWinner = null;
+        Archer veteranWinner = null;
 
         for (Archer archer : this.archers) {
-
             switch (archer.getArcherType()) {
-                case "Junior":
-                    this.juniorCount++;
-                    if (archer.getPoints() > juniorMaxPoints) {
-                        juniorMaxPoints = archer.getPoints();
-                        juniorWinnerName = archer.getName();
+                case JUNIOR:
+                    if (juniorWinner == null || archer.getPoints() > juniorWinner.getPoints()) {
+                        juniorWinner = archer;
                     }
                     break;
-                case "Senior":
-                    this.seniorCount++;
-                    if (archer.getPoints() > seniorMaxPoints) {
-                        seniorMaxPoints = archer.getPoints();
-                        seniorWinnerName = archer.getName();
+                case SENIOR:
+                    if (seniorWinner == null || archer.getPoints() > seniorWinner.getPoints()) {
+                        seniorWinner = archer;
                     }
                     break;
-                case "Veteran":
-                    this.veteranCount++;
-                    if (archer.getPoints() > veteranMaxPoints) {
-                        veteranMaxPoints = archer.getPoints();
-                        veteranWinnerName = archer.getName();
+                case VETERAN:
+                    if (veteranWinner == null || archer.getPoints() > veteranWinner.getPoints()) {
+                        veteranWinner = archer;
                     }
                     break;
             }
         }
 
         System.out.println(String.format("Junior Winner: %s%nSenior Winner: %s%nVeteran Winner: %s",
-                juniorWinnerName, seniorWinnerName, veteranWinnerName));
+                juniorWinner.getName(), seniorWinner.getName(), veteranWinner.getName()));
     }
 
     private void printAvgPoints() {
-        double juniorAvgPoints = findPointsSumOfCategory("Junior") / this.juniorCount;
-        double seniorAvgPoints = findPointsSumOfCategory("Senior") / this.seniorCount;
-        double veteranAvgPoints = findPointsSumOfCategory("Veteran") / this.veteranCount;
-
-        System.out.println(
-                String.format("Junior Average Points: %.3f%n" +
-                                "Senior Average Points: %.3f%n" +
-                                "Veteran Average Points: %.3f",
-                        juniorAvgPoints, seniorAvgPoints, veteranAvgPoints));
-    }
-
-    private double findPointsSumOfCategory(String type) {
-        return Arrays.stream(this.archers)
-                .filter(a -> a.getArcherType().equalsIgnoreCase(type))
-                .mapToDouble(e -> (double) e.getPoints()).sum();
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~ AVERAGE POINTS BY CATEGORY ~~~~~~~~~~~~~~~~~~~~~~");
+        for (Map.Entry<ArcherType, Map<Archer, Integer>> entry : this.results.entrySet()) {
+            int total = entry.getValue().size();
+            double sum = 0;
+            for (Integer i : entry.getValue().values()) {
+                sum += i;
+            }
+            System.out.println(entry.getKey() + " Average Points: " + sum / total);
+        }
     }
 
     private void printPrecisestArcher() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~ PRECISEST ARCHER ~~~~~~~~~~~~~~~~~~~~~~");
         Archer precisestArcher = null;
         double percentageTens = 0;
 
-        for (int i = 0; i < this.archers.length - freePlaces; i++) {
-            if (archers[i].getTensPercentage() > percentageTens) {
-                percentageTens = archers[i].getTensPercentage();
-                precisestArcher = archers[i];
+        for (Archer archer : this.archers) {
+            if (archer.getTensPercentage() > percentageTens) {
+                percentageTens = archer.getTensPercentage();
+                precisestArcher = archer;
             }
         }
 
-        System.out.println(String.format("Precisest Archer: %s, Percentage of Tens: %.2f%%",
+        System.out.println(String.format("%s, Percentage of Tens: %.2f%%",
                 precisestArcher.getName(), percentageTens));
     }
 
     private void printMostIncapableArcher() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~ MOST INCAPABLE ARCHER ~~~~~~~~~~~~~~~~~~~~~~");
         Archer a = null;
         int numberOfMissedShoots = 0;
 
-        for (int i = 0; i < this.archers.length - freePlaces; i++) {
-            if (archers[i].getMissedShoots() > numberOfMissedShoots) {
-                numberOfMissedShoots = archers[i].getMissedShoots();
-                a = archers[i];
+        for (Archer archer : this.archers) {
+            if (archer.getMissedShoots() > numberOfMissedShoots) {
+                numberOfMissedShoots = archer.getMissedShoots();
+                a = archer;
             }
         }
 
@@ -182,43 +163,44 @@ public class Club {
     }
 
     private void printWomenByAccuracy() {
-        System.out.println("Women Ranking by Points:");
-        for (int i = 0; i < archers.length - freePlaces; i++) {
-            for (int j = 0; j < archers.length - i - 1; j++) {
-                if (archers[j].getPoints() < archers[j + 1].getPoints()) {
-                    Archer temp = archers[j];
-                    archers[j] = archers[j + 1];
-                    archers[j + 1] = temp;
-                }
-            }
-        }
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~ WOMEN RANKING BY POINTS ~~~~~~~~~~~~~~~~~~~~~~");
 
-        double maxPoints = archers[0].getPoints();
-        for (int i = 0; i < archers.length - freePlaces; i++) {
-            if (archers[i].getGender().equalsIgnoreCase("female")) {
-                double percentagePoints = archers[i].getPoints() / maxPoints * 100;
-                System.out.println(String.format("Archer: %s, Points Percentage: %.2f",
-                        archers[i].getName(), percentagePoints));
+        for (Map.Entry<ArcherType, Map<Archer, Integer>> e : this.results.entrySet()) {
+            Map<Archer, Integer> innerMap = e.getValue();
+            List<Map.Entry<Archer, Integer>> list = new ArrayList<>(innerMap.entrySet());
+            list.sort((a1, a2) -> a2.getValue() - a1.getValue());
+
+            int maxPoints = list.get(0).getValue();
+
+            System.out.println("Category: " + e.getKey());
+            for (Map.Entry<Archer, Integer> archerInfo : list) {
+                if (archerInfo.getKey().getGender().equalsIgnoreCase("Male")) {
+                    continue;
+                }
+                double percentagePoints = archerInfo.getKey().getPoints() * 1.0 / maxPoints * 100.0;
+                System.out.println(String.format("%s, Points Percentage: %.2f",
+                        archerInfo.getKey().getName(), percentagePoints));
             }
         }
     }
 
     private void printMenWithCarbonBowsByYearsExperience() {
-        for (int i = 0; i < this.archers.length - freePlaces; i++) {
-            for (int j = 0; j < this.archers.length - i - 1; j++) {
-                if (archers[j].getExperience() < archers[j + 1].getExperience()) {
-                    Archer temp = archers[j];
-                    archers[j] = archers[j + 1];
-                    archers[j + 1] = temp;
-                }
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~ MEN WITH CARBON BOW BY EXPERIENCE ~~~~~~~~~~~~~~~~~~~~~~");
+        TreeSet<Archer> archers = new TreeSet<>((a1, a2) -> {
+            if (a1.getExperience() == a2.getExperience()) {
+                return 1;
             }
-        }
+            return a1.getExperience() - a2.getExperience();
+        });
+        archers.addAll(this.archers);
 
-        System.out.println("Men with Carbon Bows Ranking by Experience:");
-        for (int i = 0; i < archers.length - freePlaces; i++) {
-            if (archers[i].getBow().getBowType().equalsIgnoreCase("Carbon")) {
-                System.out.println(String.format("Archer: %s, Experience: %d",
-                        archers[i].getName(), archers[i].getExperience()));
+        for (Archer archer : archers) {
+            if (!archer.getGender().equalsIgnoreCase("Male")) {
+                continue;
+            }
+
+            if ("Carbon".equalsIgnoreCase(archer.getBow().getBowType())) {
+                archer.printArcherInfo();
             }
         }
     }
