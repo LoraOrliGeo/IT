@@ -10,13 +10,13 @@ public class Outlet extends Shop {
     }
 
     @Override
-    protected int getRandomArea() {
+    protected int generateRandomArea() {
         Random r = new Random();
         return r.nextInt(91) + 10;
     }
 
     @Override
-    public String getShopType() {
-        return "Outlet";
+    public ShopType getShopType() {
+        return ShopType.OUTLET;
     }
 }

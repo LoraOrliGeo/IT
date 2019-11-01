@@ -10,13 +10,13 @@ public class Booth extends Shop {
     }
 
     @Override
-    protected int getRandomArea() {
+    protected int generateRandomArea() {
         Random r = new Random();
         return r.nextInt(3) + 4;
     }
 
     @Override
-    public String getShopType() {
-        return "Booth";
+    public ShopType getShopType() {
+        return ShopType.BOOTH;
     }
 }

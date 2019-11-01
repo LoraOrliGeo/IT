@@ -15,7 +15,7 @@ public abstract class Shop {
     protected Shop(String address, String workTime, double tax) {
         this.address = address;
         this.workTime = workTime;
-        this.area = getRandomArea();
+        this.area = generateRandomArea();
         this.tax = tax;
         this.products = new ArrayList<>();
         this.soldProducts = new ArrayList<>();
@@ -50,9 +50,9 @@ public abstract class Shop {
         return turnover;
     }
 
-    protected abstract int getRandomArea();
+    protected abstract int generateRandomArea();
 
-    public abstract String getShopType();
+    public abstract ShopType getShopType();
 
     public void printProducts() {
         products.sort(Comparator.comparingDouble(Product::getPrice));

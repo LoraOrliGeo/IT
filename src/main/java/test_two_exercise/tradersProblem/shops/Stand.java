@@ -10,13 +10,13 @@ public class Stand extends Shop {
     }
 
     @Override
-    protected int getRandomArea() {
+    protected int generateRandomArea() {
         Random r = new Random();
         return r.nextInt(9) + 2;
     }
 
     @Override
-    public String getShopType() {
-        return "Stand";
+    public ShopType getShopType() {
+        return ShopType.STAND;
     }
 }
