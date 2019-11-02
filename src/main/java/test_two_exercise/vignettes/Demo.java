@@ -1,9 +1,6 @@
 package test_two_exercise.vignettes;
 
-import test_two_exercise.vignettes.vehicles.Bus;
-import test_two_exercise.vignettes.vehicles.Car;
-import test_two_exercise.vignettes.vehicles.Truck;
-import test_two_exercise.vignettes.vehicles.Vehicle;
+import test_two_exercise.vignettes.vehicles.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +12,6 @@ public class Demo {
     public static void main(String[] args) {
 
         GasStation gasStation = new GasStation();
-        Driver.gasStation = gasStation;
         gasStation.printVignettes();
 
         Random r = new Random();
@@ -26,7 +22,7 @@ public class Demo {
             String name = "Random Name " + (i + 1);
             // the money will be random number between 50 and 2000
             double money = 50 + 1950 * r.nextDouble();
-            Driver driver = new Driver(name, money);
+            Driver driver = new Driver(name, money, gasStation);
             drivers.add(driver);
         }
 

@@ -1,65 +1,42 @@
 package test_two_exercise.vignettes;
 
+import test_two_exercise.vignettes.vehicles.VehicleType;
+import test_two_exercise.vignettes.vehicles.VignetteType;
+
 import java.time.LocalDate;
 
 public class Vignette {
-    private static final int CAR_DAY_PRICE = 5;
-    private static final int BUS_DAY_PRICE = 9;
-    private static final int TRUCK_DAY_PRICE = 7;
 
-    private LocalDate date;
-    private VehicleType type;
+    private VignetteType type;
     private PeriodType period;
     private int price;
+    private LocalDate dateOfIssue;
     private LocalDate dateOfExpire;
 
-    public Vignette(VehicleType type, PeriodType period) {
+    public Vignette(VignetteType type, PeriodType period) {
         this.type = type;
         this.period = period;
-        this.price = setPrice(type, period);
+        setPrice();
     }
 
     public int getPrice() {
         return this.price;
     }
 
-    private int setPrice(VehicleType type, PeriodType period) {
-        int price = 0;
-
-        switch (type) {
-            case CAR:
-                if (period.equals(PeriodType.DAY)) {
-                    price = CAR_DAY_PRICE;
-                } else if (period.equals(PeriodType.MONTH)) {
-                    price = CAR_DAY_PRICE * 10;
-                } else if (period.equals(PeriodType.YEAR)) {
-                    price = CAR_DAY_PRICE * 60;
-                }
+    private void setPrice() {
+        switch (this.period) {
+            case DAY:
+                this.price = this.type.getDailyPrice();
                 break;
-            case BUS:
-                if (period.equals(PeriodType.DAY)) {
-                    price = BUS_DAY_PRICE;
-                } else if (period.equals(PeriodType.MONTH)) {
-                    price = BUS_DAY_PRICE * 10;
-                } else if (period.equals(PeriodType.YEAR)) {
-                    price = BUS_DAY_PRICE * 60;
-                }
+            case MONTH:
+                this.price = this.type.getMonthlyPrice();
                 break;
-            case TRUCK:
-                if (period.equals(PeriodType.DAY)) {
-                    price = TRUCK_DAY_PRICE;
-                } else if (period.equals(PeriodType.MONTH)) {
-                    price = TRUCK_DAY_PRICE * 10;
-                } else if (period.equals(PeriodType.YEAR)) {
-                    price = TRUCK_DAY_PRICE * 60;
-                }
-                break;
+            default:
+                this.price = this.type.getYearlyPrice();
         }
-
-        return price;
     }
 
-    public VehicleType getType() {
+    public VignetteType getType() {
         return this.type;
     }
 
@@ -67,39 +44,38 @@ public class Vignette {
         return this.period;
     }
 
-    public LocalDate getDate() {
-        return this.date;
+    public LocalDate getDateOfIssue() {
+        return this.dateOfIssue;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateOfIssue(LocalDate dateOfIssue) {
+        this.dateOfIssue = dateOfIssue;
+        setDateOfExpire();
+
     }
 
     public LocalDate getDateOfExpire() {
         return dateOfExpire;
     }
 
-    public void setDateOfExpire(PeriodType period) {
-        if (PeriodType.DAY.equals(period)) {
-            this.dateOfExpire = this.date.plusDays(1);
-        } else if (PeriodType.MONTH.equals(period)) {
-            this.dateOfExpire = this.date.plusMonths(1);
-        } else if (PeriodType.YEAR.equals(period)) {
-            this.dateOfExpire = this.date.plusYears(1);
+    private void setDateOfExpire() {
+        switch (period){
+            case DAY:
+                this.dateOfExpire = this.dateOfIssue.plusDays(1);
+                break;
+            case MONTH:
+                this.dateOfExpire = this.dateOfIssue.plusMonths(1);
+                break;
+            default:
+                this.dateOfExpire = this.dateOfIssue.plusYears(1);
         }
     }
 
     public int stick() {
-        if (this.type != null) {
-            if (VehicleType.CAR.equals(this.type)) {
-                return 5;
-            } else if (VehicleType.BUS.equals(this.type)) {
-                return 20;
-            } else if (VehicleType.TRUCK.equals(this.type)) {
-                return 10;
-            }
-        }
-        System.out.println("You don't have a vignette to stick!");
-        return 0;
+        return this.type.getStickTime();
+    }
+
+    public VehicleType getVehicleType(){
+        return this.type.getVehicleType();
     }
 }

@@ -1,10 +1,10 @@
 package test_two_exercise.vignettes;
 
 import test_two_exercise.vignettes.vehicles.Vehicle;
+import test_two_exercise.vignettes.vehicles.VehicleType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -12,12 +12,13 @@ public class Driver {
     private String name;
     private List<Vehicle> vehicles;
     private double money;
-    public static GasStation gasStation;
+    private GasStation gasStation;
 
-    public Driver(String name, double money) {
+    public Driver(String name, double money, GasStation gasStation) {
         this.name = name;
         this.money = money;
         this.vehicles = new ArrayList<>();
+        this.gasStation = gasStation;
     }
 
     public String getName() {
@@ -25,7 +26,7 @@ public class Driver {
     }
 
     public List<Vehicle> getVehicles() {
-        return Collections.unmodifiableList(vehicles);
+        return vehicles;
     }
 
     public double getMoney() {
@@ -33,66 +34,46 @@ public class Driver {
     }
 
     public void addVehicles(List<Vehicle> vehicles) {
-        if (vehicles != null) {
-            this.vehicles.addAll(vehicles);
-        }
+        this.vehicles.addAll(vehicles);
+
     }
 
     public void buyVignettes() {
-        // buy vignettes for all vehicles
-        if (this.money == 0) {
-            System.out.println(this.getName() + " does't have money to buy vignettes!");
-            return;
-        }
-
         Random r = new Random();
-        if (this.vehicles != null && !this.vehicles.isEmpty()) {
-            for (Vehicle vehicle : this.vehicles) {
-                PeriodType period = PeriodType.values()[r.nextInt(PeriodType.values().length)];
-                Vignette vignette = gasStation.sellVignette(vehicle, period);
-                if (vignette != null) {
-                    if (this.money - vignette.getPrice() >= 0) {
-                        this.money -= vignette.getPrice();
-                        vehicle.setVignette(vignette);
-                    } else {
-                        System.out.println(this.getName() + " does't have money to buy vignettes!");
-                        return;
-                    }
-                }
-            }
+        for (int i = 0; i < vehicles.size(); i++) {
+            buyVignette(i, PeriodType.values()[r.nextInt(PeriodType.values().length)]);
         }
     }
 
     public void buyVignette(int number, PeriodType period) {
-        if (this.money == 0) {
-            System.out.println(this.getName() + " does't have money to buy vignettes!");
+
+        if (number >= vehicles.size()) {
             return;
         }
 
         Vehicle vehicle = this.vehicles.get(number);
         Vignette vignette = gasStation.sellVignette(vehicle, period);
 
-        if (vignette != null) {
-            if (this.money - vignette.getPrice() >= 0) {
-                this.money -= vignette.getPrice();
-                vehicle.setVignette(vignette);
-            } else {
-                System.out.println(this.getName() + " does't have money to buy vignettes!");
-                this.money = 0;
-            }
+        if (vignette == null) {
+            return;
         }
+
+        if (money < vignette.getPrice()) {
+            return;
+        }
+
+        this.money -= vignette.getPrice();
+        vehicle.setVignette(vignette);
     }
 
     public List<Vehicle> getVehiclesWithExpireVignette(LocalDate currentDate) {
         List<Vehicle> vehiclesWithExpireVignette = new ArrayList<>();
 
-        if (this.vehicles != null) {
-            for (Vehicle vehicle : this.vehicles) {
-                if (vehicle.getVignette() != null) {
-                    LocalDate dateOfExpire = vehicle.getVignette().getDateOfExpire();
-                    if (dateOfExpire.isAfter(currentDate)) {
-                        vehiclesWithExpireVignette.add(vehicle);
-                    }
+        for (Vehicle vehicle : this.vehicles) {
+            if (vehicle.getVignette() != null) {
+                LocalDate dateOfExpire = vehicle.getVignette().getDateOfExpire();
+                if (dateOfExpire.isAfter(currentDate)) {
+                    vehiclesWithExpireVignette.add(vehicle);
                 }
             }
         }
