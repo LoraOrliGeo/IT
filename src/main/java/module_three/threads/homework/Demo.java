@@ -1,11 +1,14 @@
 package module_three.threads.homework;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Demo {
     public static void main(String[] args) {
+
+        System.out.println(LocalDateTime.now());
 
         System.out.println("Start");
         ExecutorService executor = Executors.newFixedThreadPool(3);
@@ -52,13 +55,13 @@ public class Demo {
         });
 
         try {
-            // 12 seconds is the fastest way to create a car
-            executor.awaitTermination(12, TimeUnit.SECONDS);
-            executor.shutdown();
+            executor.awaitTermination(14, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        executor.shutdown();
         System.out.println("The car is ready!");
+        System.out.println(LocalDateTime.now());
     }
 }
