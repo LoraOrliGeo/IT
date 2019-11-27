@@ -1,10 +1,12 @@
 package module_three.threads.making_rakia;
 
+import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Distillery {
     private static final int NUMBER_OF_CAULDRONS = 5;
-    private static final int MAX_LITERS_RAKIA = 10;
+    private static final int MAX_LITERS_RAKIA = 20;
     private List<Cauldron> cauldrons;
     private Map<FruitType, Integer> litersProducedRakia;
     private Map<FruitType, Integer> harvestFruits;
@@ -92,19 +94,46 @@ public class Distillery {
     }
 
     public void printStatistics() {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~ MOST HARVEST FRUIT ~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        this.harvestFruits.entrySet().stream().sorted((f1, f2) -> f2.getValue() - f1.getValue())
-                .limit(1).forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue() + " kg"));
+        StringBuilder result = new StringBuilder();
+        result.append(LocalDateTime.now()).append(System.lineSeparator());
+        try (OutputStreamWriter writer = new FileWriter(new File("C:\\Users\\Lori\\Desktop\\rakii_statistics.txt"), true)) {
 
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~ MOST PRODUCED RAKIA ~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        this.litersProducedRakia.entrySet().stream().sorted((r1, r2) -> r2.getValue() - r1.getValue())
-                .limit(1).forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue() + " liters"));
+            result.append("~~~~~~~~~~~~~~~~~~~~~~~~~~ MOST HARVEST FRUIT ~~~~~~~~~~~~~~~~~~~~~~~~~~" + System.lineSeparator());
 
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~ RATIO BETWEEN GRAPES AND APRICOT PRODUCED RAKIA ~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        int grapesRakiaLiters = this.litersProducedRakia.containsKey(FruitType.GRAPES)
-                ? this.litersProducedRakia.get(FruitType.GRAPES) : 0;
-        int apricotRakiaLiters = this.litersProducedRakia.containsKey(FruitType.APRICOT)
-                ? this.litersProducedRakia.get(FruitType.APRICOT) : 0;
-        System.out.println(grapesRakiaLiters + " / " + apricotRakiaLiters);
+            this.harvestFruits.entrySet().stream().sorted((f1, f2) -> f2.getValue() - f1.getValue())
+                    .limit(1).forEach(e -> result.append(e.getKey() + " -> " + e.getValue() + " kg").append(System.lineSeparator()));
+
+            result.append("~~~~~~~~~~~~~~~~~~~~~~~~~~ MOST PRODUCED RAKIA ~~~~~~~~~~~~~~~~~~~~~~~~~~").append(System.lineSeparator());
+            this.litersProducedRakia.entrySet().stream().sorted((r1, r2) -> r2.getValue() - r1.getValue())
+                    .limit(1).forEach(e -> result.append(e.getKey() + " -> " + e.getValue() + " liters").append(System.lineSeparator()));
+
+            result.append("~~~~~~~~~~~~~~~~~~~~~~~~~~ RATIO BETWEEN GRAPES AND APRICOT PRODUCED RAKIA ~~~~~~~~~~~~~~~~~~~~~~~~~~").append(System.lineSeparator());
+            int grapesRakiaLiters = this.litersProducedRakia.containsKey(FruitType.GRAPES)
+                    ? this.litersProducedRakia.get(FruitType.GRAPES) : 0;
+            int apricotRakiaLiters = this.litersProducedRakia.containsKey(FruitType.APRICOT)
+                    ? this.litersProducedRakia.get(FruitType.APRICOT) : 0;
+            result.append(grapesRakiaLiters + " / " + apricotRakiaLiters).append(System.lineSeparator());
+
+            writer.append(result.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~ MOST HARVEST FRUIT ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//        this.harvestFruits.entrySet().stream().sorted((f1, f2) -> f2.getValue() - f1.getValue())
+//                .limit(1).forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue() + " kg"));
+//
+//        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~ MOST PRODUCED RAKIA ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//        this.litersProducedRakia.entrySet().stream().sorted((r1, r2) -> r2.getValue() - r1.getValue())
+//                .limit(1).forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue() + " liters"));
+//
+//        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~ RATIO BETWEEN GRAPES AND APRICOT PRODUCED RAKIA ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//        int grapesRakiaLiters = this.litersProducedRakia.containsKey(FruitType.GRAPES)
+//                ? this.litersProducedRakia.get(FruitType.GRAPES) : 0;
+//        int apricotRakiaLiters = this.litersProducedRakia.containsKey(FruitType.APRICOT)
+//                ? this.litersProducedRakia.get(FruitType.APRICOT) : 0;
+//        System.out.println(grapesRakiaLiters + " / " + apricotRakiaLiters);
     }
 }
