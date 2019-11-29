@@ -1,11 +1,7 @@
-package module_three.files.comma_counter;
-
-import org.w3c.dom.ls.LSOutput;
+package module_three.files.symbol_counter;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Demo {
     public static void main(String[] args) {

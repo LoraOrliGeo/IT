@@ -1,6 +1,4 @@
-package module_three.files.comma_counter;
-
-import java.io.FileReader;
+package module_three.files.symbol_counter;
 
 public class Counter extends Thread {
     private String text;
