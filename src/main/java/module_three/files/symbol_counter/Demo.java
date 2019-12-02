@@ -4,6 +4,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Demo {
     public static void main(String[] args) {
@@ -11,24 +12,21 @@ public class Demo {
         // count the number of commas in Lev Tolstoi's novel "War and Peace"
 
         File novel = new File("C:\\Users\\Lori\\Desktop\\voina_i_mir.txt");
-        StringBuilder all = new StringBuilder();
+        StringBuilder novelText = new StringBuilder();
         int commaCount = 0;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(novel))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                all.append(line);
+        try (Scanner sc = new Scanner(novel)) {
+            while (sc.hasNextLine()) {
+                novelText.append(sc.nextLine());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        String allString = all.toString();
+        String text = novelText.toString();
         System.out.println(LocalDateTime.now());
 
-        List<String> parts = partition(allString, 2);
+        List<String> parts = partition(text, 2);
 
         for (int i = 0; i < parts.size(); i++) {
             Counter c = new Counter(parts.get(i), ',');
