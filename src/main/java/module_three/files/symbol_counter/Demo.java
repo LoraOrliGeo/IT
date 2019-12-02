@@ -2,6 +2,8 @@ package module_three.files.symbol_counter;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Demo {
     public static void main(String[] args) {
@@ -25,21 +27,34 @@ public class Demo {
 
         String allString = all.toString();
         System.out.println(LocalDateTime.now());
-        Counter c1 = new Counter(allString.substring(0, allString.length() / 3), ',');
-        Counter c2 = new Counter(allString.substring(allString.length() / 3, allString.length() * 2 / 3), ',');
-        c1.start();
-        c2.start();
 
-        try {
-            c1.join();
-            c2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        List<String> parts = partition(allString, 2);
+
+        for (int i = 0; i < parts.size(); i++) {
+            Counter c = new Counter(parts.get(i), ',');
+            c.start();
+            try {
+                c.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            commaCount += c.getCurrentCount();
         }
 
-        commaCount += c1.getCurrentCount();
-        commaCount += c2.getCurrentCount();
         System.out.println(LocalDateTime.now());
         System.out.println("Number of commas: " + commaCount);
+    }
+
+    private static List<String> partition(String text, int numberOfPartitions) {
+        int part = text.length() / numberOfPartitions;
+        List<String> parts = new ArrayList<>();
+        int start = 0;
+        int end = part;
+        for (int i = 0; i < numberOfPartitions; i++) {
+            parts.add(text.substring(start, end));
+            start += part;
+            end += part;
+        }
+        return parts;
     }
 }
